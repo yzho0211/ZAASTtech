@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "eldorFit"
+rootProject.name = "eldorfit"
 include(":app")
 include(":flutter_eldorfit")
