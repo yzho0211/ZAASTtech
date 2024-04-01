@@ -24,6 +24,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("profile") {
+            initWith(getByName("debug"))
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -44,4 +47,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    debugImplementation("com.example.flutter_eldorfit:flutter_debug:1.0")
+    releaseImplementation("com.example.flutter_eldorfit:flutter_release:1.0")
+    add("profileImplementation", "com.example.flutter_eldorfit:flutter_profile:1.0")
 }
+
+
