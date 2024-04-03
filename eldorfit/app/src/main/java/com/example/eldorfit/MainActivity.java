@@ -1,5 +1,6 @@
 package com.example.eldorfit;
 import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.FlutterEngine;
 
 import android.os.Bundle;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    public FlutterEngine flutterEngine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
