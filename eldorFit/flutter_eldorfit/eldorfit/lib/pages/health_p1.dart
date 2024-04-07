@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class QuizApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -145,8 +144,23 @@ class _QuizPageState extends State<QuizPage> {
       if (currentQuestionIndex < quizData.length - 1) {
         currentQuestionIndex++;
       } else {
-        // Quiz completed
-        // You can add navigation or a completion message here
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Quiz Completed'),
+              content: Text('Congratulations! You have completed the quiz.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Close'),
+                ),
+              ],
+            );
+          },
+        );
       }
     });
   }
