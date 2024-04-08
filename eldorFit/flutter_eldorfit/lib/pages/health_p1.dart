@@ -133,6 +133,23 @@ class _QuizPageState extends State<QuizPage> {
       } else {
         // Incorrect answer
         showResult = false;
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Incorrect Answer'),
+              content: Text('Sorry, your answer is incorrect.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Close'),
+                ),
+              ],
+            );
+          },
+        );
       }
     });
   }
@@ -170,6 +187,12 @@ class _QuizPageState extends State<QuizPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Heart Health Quiz'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: Center(
         child: Column(
