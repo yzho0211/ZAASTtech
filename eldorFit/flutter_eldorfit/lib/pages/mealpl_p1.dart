@@ -115,7 +115,7 @@ class _MealPlanPage1State extends State<MealPlanPage1> {
                       builder: (context) => MealPlanPage2(
                         targetCalories: targetCalories ?? '2000',
                         diet: selectedDiet!,
-                        exclude: excludedFoods ?? '',
+                        // exclude: excludedFoods ?? '',
                       ),
                     ),
                   );
