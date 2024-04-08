@@ -36,7 +36,14 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
       // Meal plan generated successfully, handle response data
       var data = jsonDecode(response.body);
       setState(() {
-        mealPlan = List<Map<String, dynamic>>.from(data['week']['meals']);
+        if (data['week']['meals'] != null) {
+          setState(() {
+            mealPlan = List<Map<String, dynamic>>.from(data['week']['meals']);
+          });
+        } else {
+          // Handle the case where meals data is null
+          print('Meal data is null');
+        }
       });
     } else {
       // Failed to generate meal plan, handle error

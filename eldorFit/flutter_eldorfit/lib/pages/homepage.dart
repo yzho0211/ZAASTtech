@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'medrem_p1.dart'; // This file contains the MedicineRemindersPage1 class and global medicine reminders list
 import 'refills_p1.dart'; // This file contains the RefillsPage1 class
 import 'appointments_p1.dart'; // This file contains the AppointmentsPage1 class and appointmentsList
-import '/widgets/backgroundcont.dart'; // This file contains the BackgroundContainer class
+import '../widgets/backgroundcont.dart'; // This file contains the BackgroundContainer class
 import 'health_p1.dart'; // Assuming this file contains the HealthAwarenessPage class or similar
 import 'mealpl_p1.dart'; // Assuming this file contains the MealPlanPage1 class
 
@@ -15,44 +15,54 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void navigateToMedicineReminders() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const MedicineRemindersPage1()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const MedicineRemindersPage1()));
   }
 
   void navigateToRefills() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const RefillsPage1()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const RefillsPage1()));
   }
 
   void navigateToAppointments() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const AppointmentsPage1()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const AppointmentsPage1()));
   }
 
   void navigateToHealthAwareness() {
     // Replace with your actual Health Awareness Page navigation
-    Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => QuizPage()));
   }
 
   void navigateToMealPlanner() {
     // Replace with your actual Meal Planner Page navigation
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const MealPlanPage1()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const MealPlanPage1()));
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget upcomingMedicineRemindersWidget = MedicineRemindersPage1.medicineReminders.isNotEmpty
-        ? Card(
-            color: Colors.yellow,
-            child: ListTile(
-              title: const Text('You have upcoming medicine reminders', style: TextStyle(color: Colors.black)),
-              onTap: navigateToMedicineReminders,
-            ),
-          )
-        : SizedBox.shrink();
+    Widget upcomingMedicineRemindersWidget =
+        MedicineRemindersPage1.medicineReminders.isNotEmpty
+            ? Card(
+                color: Colors.yellow,
+                child: ListTile(
+                  title: const Text('You have upcoming medicine reminders',
+                      style: TextStyle(color: Colors.black)),
+                  onTap: navigateToMedicineReminders,
+                ),
+              )
+            : SizedBox.shrink();
 
     Widget upcomingAppointmentsWidget = appointmentsList.isNotEmpty
         ? Card(
             color: Colors.white,
             child: ListTile(
-              title: const Text('You have upcoming appointments', style: TextStyle(color: Colors.black)),
+              title: const Text('You have upcoming appointments',
+                  style: TextStyle(color: Colors.black)),
               onTap: navigateToAppointments,
             ),
           )
@@ -93,11 +103,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: <Widget>[
-                  _buildCard(context, 'Appointments', Icons.calendar_today, navigateToAppointments),
-                  _buildCard(context, 'Your Refills', Icons.local_pharmacy, navigateToRefills),
-                  _buildCard(context, 'Medicine Reminders', Icons.book, navigateToMedicineReminders),
-                  _buildCard(context, 'Learn about health topics', Icons.school, navigateToHealthAwareness),
-                  _buildCard(context, 'Your Meal Planner', Icons.restaurant_menu, navigateToMealPlanner),
+                  _buildCard(context, 'Appointments', Icons.calendar_today,
+                      navigateToAppointments),
+                  _buildCard(context, 'Your Refills', Icons.local_pharmacy,
+                      navigateToRefills),
+                  _buildCard(context, 'Medicine Reminders', Icons.book,
+                      navigateToMedicineReminders),
+                  _buildCard(context, 'Learn about health topics', Icons.school,
+                      navigateToHealthAwareness),
+                  _buildCard(context, 'Your Meal Planner',
+                      Icons.restaurant_menu, navigateToMealPlanner),
                 ],
               ),
               const SizedBox(height: 20),
@@ -120,7 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildCard(BuildContext context, String title, IconData icon, VoidCallback onTap) {
+  Widget _buildCard(
+      BuildContext context, String title, IconData icon, VoidCallback onTap) {
     return Card(
       elevation: 4.0,
       child: InkWell(
@@ -186,13 +202,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
