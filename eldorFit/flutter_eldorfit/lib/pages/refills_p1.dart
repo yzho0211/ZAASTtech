@@ -22,12 +22,7 @@ class Refill {
 //list of refills
 List<Refill> refillsList = [
   // Example refill with logic to calculate the remaining pills and reminder date
-  Refill(
-    medicineName: 'Aspirin',
-    totalTablets: 120,
-    tabletsPerDay: 2,
-    reminderDate: DateTime.now().add(Duration(days: (120 / 2).floor())),
-  ),
+  
   // Add more refills here
 ];
 

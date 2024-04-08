@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'appointments_p1.dart';
+import 'appointments_p1.dart'; // p1
 
 class AppointmentsPage2 extends StatefulWidget {
   const AppointmentsPage2({Key? key}) : super(key: key);
@@ -11,14 +11,20 @@ class AppointmentsPage2 extends StatefulWidget {
 class _AppointmentsPage2State extends State<AppointmentsPage2> {
   final _nameController = TextEditingController();
   final _doctorController = TextEditingController();
-  final _timeController = TextEditingController();
+  String _selectedHour = '1';
+  String _selectedMinute = '00';
+  String _selectedAmPm = 'AM';
   DateTime? _selectedDate;
+
+  // Lists for hours, minutes, and AM/PM
+  final List<String> _hours = List<String>.generate(12, (i) => '${i + 1}');
+  final List<String> _minutes = List<String>.generate(60, (i) => i.toString().padLeft(2, '0'));
+  final List<String> _amPm = ['AM', 'PM'];
 
   @override
   void dispose() {
     _nameController.dispose();
     _doctorController.dispose();
-    _timeController.dispose();
     super.dispose();
   }
 
@@ -37,17 +43,17 @@ class _AppointmentsPage2State extends State<AppointmentsPage2> {
   }
 
   void _addAppointment() {
+    final String time = '$_selectedHour:$_selectedMinute $_selectedAmPm';
     if (_nameController.text.isNotEmpty &&
         _doctorController.text.isNotEmpty &&
-        _timeController.text.isNotEmpty &&
         _selectedDate != null) {
       final newAppointment = Appointment(
         name: _nameController.text,
         doctor: _doctorController.text,
-        time: _timeController.text,
+        time: time,
         date: _selectedDate!,
       );
-      appointmentsList.add(newAppointment);
+      appointmentsList.add(newAppointment); // Make sure this adds to your global/static appointment list
       Navigator.pop(context); // Return to the previous screen
     }
   }
@@ -70,9 +76,53 @@ class _AppointmentsPage2State extends State<AppointmentsPage2> {
               controller: _doctorController,
               decoration: const InputDecoration(labelText: 'Doctor'),
             ),
-            TextField(
-              controller: _timeController,
-              decoration: const InputDecoration(labelText: 'Time'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                DropdownButton<String>(
+                  value: _selectedHour,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedHour = newValue!;
+                    });
+                  },
+                  items: _hours.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                Text(':'),
+                DropdownButton<String>(
+                  value: _selectedMinute,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedMinute = newValue!;
+                    });
+                  },
+                  items: _minutes.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                DropdownButton<String>(
+                  value: _selectedAmPm,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedAmPm = newValue!;
+                    });
+                  },
+                  items: _amPm.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
             ),
             ListTile(
               title: const Text('Select Date'),
@@ -91,3 +141,4 @@ class _AppointmentsPage2State extends State<AppointmentsPage2> {
     );
   }
 }
+

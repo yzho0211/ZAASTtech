@@ -18,12 +18,6 @@ class Appointment {
 // Global example data list for appointments
 List<Appointment> appointmentsList = [
   // Example appointments
-  Appointment(
-    name: 'Dental Checkup',
-    doctor: 'Dr. Susan',
-    time: '11:00 AM',
-    date: DateTime.now().add(const Duration(days: 1)),
-  ),
   // Add more appointments here
 ];
 

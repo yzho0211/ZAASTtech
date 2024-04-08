@@ -1,6 +1,6 @@
 // medrem_p2.dart
 import 'package:flutter/material.dart';
-import 'medrem_p1.dart';
+import 'medrem_p1.dart'; // page1
 
 class AddMedicinePage extends StatefulWidget {
   const AddMedicinePage({Key? key}) : super(key: key);
@@ -12,30 +12,36 @@ class AddMedicinePage extends StatefulWidget {
 class _AddMedicinePageState extends State<AddMedicinePage> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
-  final _timeController = TextEditingController();
+  String _selectedHour = '1';
+  String _selectedMinute = '00';
+  String _selectedAmPm = 'AM';
   final _daysController = TextEditingController();
   final _instructionsController = TextEditingController();
+
+  // Lists for hours, minutes, and AM/PM
+  final List<String> _hours = List<String>.generate(12, (i) => '${i + 1}');
+  final List<String> _minutes = List<String>.generate(60, (i) => i.toString().padLeft(2, '0'));
+  final List<String> _amPm = ['AM', 'PM'];
 
   @override
   void dispose() {
     _nameController.dispose();
     _amountController.dispose();
-    _timeController.dispose();
     _daysController.dispose();
     _instructionsController.dispose();
     super.dispose();
   }
 
   void _addMedicine() {
+    final String time = '$_selectedHour:$_selectedMinute $_selectedAmPm';
     if (_nameController.text.isNotEmpty &&
         _amountController.text.isNotEmpty &&
-        _timeController.text.isNotEmpty &&
         _daysController.text.isNotEmpty &&
         _instructionsController.text.isNotEmpty) {
       final newMedicine = MedicineReminder(
         name: _nameController.text,
         amount: _amountController.text,
-        time: _timeController.text,
+        time: time,
         days: _daysController.text,
         instructions: _instructionsController.text,
       );
@@ -49,7 +55,7 @@ class _AddMedicinePageState extends State<AddMedicinePage> {
       appBar: AppBar(
         title: const Text('Add Medicine'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
@@ -61,9 +67,53 @@ class _AddMedicinePageState extends State<AddMedicinePage> {
               controller: _amountController,
               decoration: const InputDecoration(labelText: 'Amount (e.g., 2 tablets)'),
             ),
-            TextField(
-              controller: _timeController,
-              decoration: const InputDecoration(labelText: 'Time (e.g., 09:00 AM)'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                DropdownButton<String>(
+                  value: _selectedHour,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedHour = newValue!;
+                    });
+                  },
+                  items: _hours.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                Text(':'),
+                DropdownButton<String>(
+                  value: _selectedMinute,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedMinute = newValue!;
+                    });
+                  },
+                  items: _minutes.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                DropdownButton<String>(
+                  value: _selectedAmPm,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedAmPm = newValue!;
+                    });
+                  },
+                  items: _amPm.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
             ),
             TextField(
               controller: _daysController,
@@ -84,4 +134,5 @@ class _AddMedicinePageState extends State<AddMedicinePage> {
     );
   }
 }
+
 

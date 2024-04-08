@@ -21,13 +21,14 @@ class MedicineReminder {
 class MedicineRemindersPage1 extends StatefulWidget {
   const MedicineRemindersPage1({Key? key}) : super(key: key);
 
+  // Static list to simulate global behavior
+  static List<MedicineReminder> medicineReminders = [];
+
   @override
   _MedicineRemindersPage1State createState() => _MedicineRemindersPage1State();
 }
 
 class _MedicineRemindersPage1State extends State<MedicineRemindersPage1> {
-  List<MedicineReminder> medicineReminders = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +36,9 @@ class _MedicineRemindersPage1State extends State<MedicineRemindersPage1> {
         title: const Text('Your Medicine Reminders'),
       ),
       body: ListView.builder(
-        itemCount: medicineReminders.length,
+        itemCount: MedicineRemindersPage1.medicineReminders.length,
         itemBuilder: (context, index) {
-          final item = medicineReminders[index];
+          final item = MedicineRemindersPage1.medicineReminders[index];
           return Card(
             child: ListTile(
               title: Text('${item.time} - ${item.name}'),
@@ -52,7 +53,6 @@ class _MedicineRemindersPage1State extends State<MedicineRemindersPage1> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          // Push the AddMedicinePage and wait for the result
           final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const AddMedicinePage()),
@@ -60,7 +60,7 @@ class _MedicineRemindersPage1State extends State<MedicineRemindersPage1> {
           // If a result was returned, add it to the list and refresh the state
           if (result != null) {
             setState(() {
-              medicineReminders.add(result);
+              MedicineRemindersPage1.medicineReminders.add(result);
             });
           }
         },
@@ -69,5 +69,6 @@ class _MedicineRemindersPage1State extends State<MedicineRemindersPage1> {
     );
   }
 }
+
 
 
