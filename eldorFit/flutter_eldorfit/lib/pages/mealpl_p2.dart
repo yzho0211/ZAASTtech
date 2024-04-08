@@ -5,13 +5,11 @@ import 'dart:convert';
 class MealPlanPage2 extends StatefulWidget {
   final String targetCalories;
   final String diet;
-  final String exclude;
 
   const MealPlanPage2({
     Key? key,
     required this.targetCalories,
     required this.diet,
-    required this.exclude,
   }) : super(key: key);
 
   @override
@@ -19,7 +17,7 @@ class MealPlanPage2 extends StatefulWidget {
 }
 
 class _MealPlanPage2State extends State<MealPlanPage2> {
-  List<Map<String, dynamic>> mealPlan = []; // Initialize meal plan list
+  Map<String, dynamic> mealPlan = {};
 
   @override
   void initState() {
@@ -28,26 +26,24 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
   }
 
   Future<void> generateMealPlan() async {
-    // Make API request to generate meal plan with parameters
-    var response = await http.get(Uri.parse(
-        'https://api.spoonacular.com/mealplanner/generate?apiKey=b4757d256a764b2bbcad36698241424c&timeFrame=week&targetCalories=${widget.targetCalories}&diet=${widget.diet}&exclude=${widget.exclude}'));
+    try {
+      String queryParams =
+          'apiKey=b4757d256a764b2bbcad36698241424c&timeFrame=week&targetCalories=${widget.targetCalories}&diet=${widget.diet}';
 
-    if (response.statusCode == 200) {
-      // Meal plan generated successfully, handle response data
-      var data = jsonDecode(response.body);
-      setState(() {
-        if (data['week']['meals'] != null) {
-          setState(() {
-            mealPlan = List<Map<String, dynamic>>.from(data['week']['meals']);
-          });
-        } else {
-          // Handle the case where meals data is null
-          print('Meal data is null');
-        }
-      });
-    } else {
-      // Failed to generate meal plan, handle error
-      print('Failed to generate meal plan: ${response.statusCode}');
+      var response = await http.get(Uri.parse(
+          'https://api.spoonacular.com/mealplanner/generate?$queryParams'));
+
+      if (response.statusCode == 200) {
+        setState(() {
+          mealPlan = jsonDecode(response.body)['week'];
+        });
+      } else {
+        // Handle API error
+        print('API call failed: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network connection error
+      print('Network connection error: $e');
     }
   }
 
@@ -57,16 +53,45 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
       appBar: AppBar(
         title: const Text('Meal Plan Result'),
       ),
-      body: ListView.builder(
-        itemCount: mealPlan.length,
-        itemBuilder: (context, index) {
-          var meal = mealPlan[index];
-          return ListTile(
-            title: Text('Day ${index + 1} - ${meal['title']}'),
-            subtitle: Text('Nutrients: ${meal['nutrients']}'),
-          );
-        },
-      ),
+      body: mealPlan.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: mealPlan.length,
+              itemBuilder: (context, index) {
+                var day = mealPlan.keys.elementAt(index);
+                var meals = mealPlan[day]['meals'];
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      day,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    for (var meal in meals)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            meal['title'] ?? 'No meal data found',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 8),
+                          Text('Type: ${meal['type'] ?? 'Unknown'}'),
+                          SizedBox(height: 8),
+                          Text(
+                              'Ready in ${meal['readyInMinutes'] ?? 'Unknown'} minutes'),
+                          SizedBox(height: 16),
+                        ],
+                      ),
+                    SizedBox(height: 20),
+                  ],
+                );
+              },
+            ),
     );
   }
 }
