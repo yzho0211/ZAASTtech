@@ -32,6 +32,30 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "connectivity",
+      "rootUri": "file:///Users/arxhit/.pub-cache/hosted/pub.dev/connectivity-3.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "connectivity_for_web",
+      "rootUri": "file:///Users/arxhit/.pub-cache/hosted/pub.dev/connectivity_for_web-0.4.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "connectivity_macos",
+      "rootUri": "file:///Users/arxhit/.pub-cache/hosted/pub.dev/connectivity_macos-0.2.1+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "connectivity_platform_interface",
+      "rootUri": "file:///Users/arxhit/.pub-cache/hosted/pub.dev/connectivity_platform_interface-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///Users/arxhit/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.6",
       "packageUri": "lib/",
@@ -58,6 +82,12 @@
     {
       "name": "flutter_test",
       "rootUri": "file:///Users/arxhit/Library/flutter/packages/flutter_test",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///Users/arxhit/Library/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -118,6 +148,12 @@
     {
       "name": "path",
       "rootUri": "file:///Users/arxhit/.pub-cache/hosted/pub.dev/path-1.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "plugin_platform_interface",
+      "rootUri": "file:///Users/arxhit/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -188,7 +224,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-04-08T11:43:34.075091Z",
+  "generated": "2024-04-08T16:57:01.924854Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

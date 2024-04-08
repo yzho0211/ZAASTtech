@@ -29,7 +29,7 @@ import java.util.Arrays;
 public class MyFlutterActivity extends FlutterActivity {
     private static final String CHANNEL_NAME = "flutter.java.channel";
     private MethodChannel methodChannel;
-    private static final int PERMISSION_REQUEST_CODE = 10000;
+    private static final int PERMISSION_REQUEST_CODE = 100000;
     private static final String NOTIFICATION_CHANNEL_ID = "notification.id";
     @Override
     public void configureFlutterEngine(FlutterEngine flutterEngine) {
@@ -151,7 +151,7 @@ public class MyFlutterActivity extends FlutterActivity {
                         ActivityCompat.requestPermissions(MyFlutterActivity.this,
                                 new String[]{Manifest.permission.VIBRATE, Manifest.permission.RECEIVE_BOOT_COMPLETED,
                                         Manifest.permission.WAKE_LOCK, Manifest.permission.POST_NOTIFICATIONS,
-                                        Manifest.permission.SCHEDULE_EXACT_ALARM},
+                                        Manifest.permission.SCHEDULE_EXACT_ALARM, Manifest.permission.INTERNET},
                                 PERMISSION_REQUEST_CODE);
                     }
                 })
@@ -167,14 +167,12 @@ public class MyFlutterActivity extends FlutterActivity {
 
     private void requestPermissionsIfNeeded() {
         // Check if permissions are already granted
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.RECEIVE_BOOT_COMPLETED) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED ||
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_BOOT_COMPLETED) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED){
+                ContextCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED){
             // Request permissions
             showPermissionDialog();
         }

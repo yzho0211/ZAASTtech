@@ -42,5 +42,11 @@
       <version>1.0.0-e76c956498841e1ab458577d3892003e553e4f3c</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>io.flutter.plugins.connectivity</groupId>
+      <artifactId>connectivity_debug</artifactId>
+      <version>1.0</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 </project>
