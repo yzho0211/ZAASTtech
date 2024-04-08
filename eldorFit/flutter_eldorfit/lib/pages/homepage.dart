@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'medrem_p1.dart'; //  this file contains the MedicineRemindersPage1 class
-import 'refills_p1.dart'; //  this file contains the RefillsPage1 class
-import 'appointments_p1.dart'; //  this file contains the AppointmentsPage1 class
-import '/widgets/backgroundcont.dart'; //  this file contains the BackgroundContainer class
+import 'medrem_p1.dart'; // This file contains the MedicineRemindersPage1 class and global medicine reminders list
+import 'refills_p1.dart'; // This file contains the RefillsPage1 class
+import 'appointments_p1.dart'; // This file contains the AppointmentsPage1 class and appointmentsList
+import '/widgets/backgroundcont.dart'; // This file contains the BackgroundContainer class
+import 'health_p1.dart'; // Assuming this file contains the HealthAwarenessPage class or similar
+import 'mealpl_p1.dart'; // Assuming this file contains the MealPlanPage1 class
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -12,35 +14,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _showReminder = true;
-
   void navigateToMedicineReminders() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const MedicineRemindersPage1()),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const MedicineRemindersPage1()));
   }
 
   void navigateToRefills() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const RefillsPage1()),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const RefillsPage1()));
   }
 
   void navigateToAppointments() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AppointmentsPage1()),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const AppointmentsPage1()));
+  }
+
+  void navigateToHealthAwareness() {
+    // Replace with your actual Health Awareness Page navigation
+    Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPage()));
+  }
+
+  void navigateToMealPlanner() {
+    // Replace with your actual Meal Planner Page navigation
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const MealPlanPage1()));
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget upcomingMedicineRemindersWidget = MedicineRemindersPage1.medicineReminders.isNotEmpty
+        ? Card(
+            color: Colors.yellow,
+            child: ListTile(
+              title: const Text('You have upcoming medicine reminders', style: TextStyle(color: Colors.black)),
+              onTap: navigateToMedicineReminders,
+            ),
+          )
+        : SizedBox.shrink();
+
     Widget upcomingAppointmentsWidget = appointmentsList.isNotEmpty
         ? Card(
+            color: Colors.white,
             child: ListTile(
-              title: Text('You have upcoming appointments'),
+              title: const Text('You have upcoming appointments', style: TextStyle(color: Colors.black)),
               onTap: navigateToAppointments,
             ),
           )
@@ -71,36 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const Divider(height: 20, thickness: 2),
-              if (_showReminder)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Card(
-                    color: Colors.yellow,
-                    child: ListTile(
-                      title: const Text('Reminder'),
-                      subtitle: const Text('Did you take your Morning Medication?'),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _showReminder = false;
-                              });
-                            },
-                            child: const Text('Yes'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              // Placeholder for "No" action
-                            },
-                            child: const Text('No'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+              upcomingMedicineRemindersWidget,
               upcomingAppointmentsWidget,
               const SizedBox(height: 20),
               GridView.count(
@@ -113,12 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   _buildCard(context, 'Appointments', Icons.calendar_today, navigateToAppointments),
                   _buildCard(context, 'Your Refills', Icons.local_pharmacy, navigateToRefills),
                   _buildCard(context, 'Medicine Reminders', Icons.book, navigateToMedicineReminders),
-                  _buildCard(context, 'Learn about health topics', Icons.school, () {
-                    // Placeholder for Health Awareness navigation
-                  }),
-                  _buildCard(context, 'Your Meal Planner', Icons.restaurant_menu, () {
-                    // Placeholder for Meal Planner navigation
-                  }),
+                  _buildCard(context, 'Learn about health topics', Icons.school, navigateToHealthAwareness),
+                  _buildCard(context, 'Your Meal Planner', Icons.restaurant_menu, navigateToMealPlanner),
                 ],
               ),
               const SizedBox(height: 20),
@@ -195,22 +174,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             leading: const Icon(Icons.school),
             title: const Text('Health Awareness'),
-            onTap: () {
-              // Placeholder for Health Awareness navigation
-            },
+            onTap: navigateToHealthAwareness,
           ),
           ListTile(
             leading: const Icon(Icons.restaurant_menu),
             title: const Text('Meal Planner'),
-            onTap: () {
-              // Placeholder for Meal Planner navigation
-            },
+            onTap: navigateToMealPlanner,
           ),
         ],
       ),
     );
   }
 }
+
 
 
 
