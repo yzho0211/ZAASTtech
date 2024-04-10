@@ -70,7 +70,7 @@ class RefillsPage1 extends StatelessWidget {
   void sendDataToJava(String data) async {
     // Example: Sending data to Java
     try {
-      await platform.invokeMethod('sendDataToJava', data);
+      await platform.invokeMethod('sendRefillDataToJava', data);
     } on PlatformException catch (e) {
       print("Failed to send data to Java: '${e.message}'.");
     }

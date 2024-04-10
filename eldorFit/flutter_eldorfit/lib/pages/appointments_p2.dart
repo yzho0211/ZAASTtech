@@ -18,7 +18,8 @@ class _AppointmentsPage2State extends State<AppointmentsPage2> {
 
   // Lists for hours, minutes, and AM/PM
   final List<String> _hours = List<String>.generate(12, (i) => '${i + 1}');
-  final List<String> _minutes = List<String>.generate(60, (i) => i.toString().padLeft(2, '0'));
+  final List<String> _minutes =
+      List<String>.generate(60, (i) => i.toString().padLeft(2, '0'));
   final List<String> _amPm = ['AM', 'PM'];
 
   @override
@@ -53,7 +54,9 @@ class _AppointmentsPage2State extends State<AppointmentsPage2> {
         time: time,
         date: _selectedDate!,
       );
-      appointmentsList.add(newAppointment); // Make sure this adds to your global/static appointment list
+      appointmentsList.add(
+          newAppointment); // Make sure this adds to your global/static appointment list
+      print("Navigator.pop");
       Navigator.pop(context); // Return to the previous screen
     }
   }
@@ -127,7 +130,9 @@ class _AppointmentsPage2State extends State<AppointmentsPage2> {
             ListTile(
               title: const Text('Select Date'),
               subtitle: Text(
-                _selectedDate == null ? 'No date chosen' : _selectedDate!.toLocal().toString(),
+                _selectedDate == null
+                    ? 'No date chosen'
+                    : _selectedDate!.toLocal().toString(),
               ),
               onTap: () => _selectDate(context),
             ),
@@ -141,4 +146,3 @@ class _AppointmentsPage2State extends State<AppointmentsPage2> {
     );
   }
 }
-

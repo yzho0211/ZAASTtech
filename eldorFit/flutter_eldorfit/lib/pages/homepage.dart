@@ -45,17 +45,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget upcomingMedicineRemindersWidget =
-        MedicineRemindersPage1.medicineReminders.isNotEmpty
-            ? Card(
-                color: Colors.yellow,
-                child: ListTile(
-                  title: const Text('You have upcoming medicine reminders',
-                      style: TextStyle(color: Colors.black)),
-                  onTap: navigateToMedicineReminders,
-                ),
-              )
-            : SizedBox.shrink();
+    Widget upcomingMedicineRemindersWidget = medicineReminders.isNotEmpty
+        ? Card(
+            color: Colors.yellow,
+            child: ListTile(
+              title: const Text('You have upcoming medicine reminders',
+                  style: TextStyle(color: Colors.black)),
+              onTap: navigateToMedicineReminders,
+            ),
+          )
+        : SizedBox.shrink();
 
     Widget upcomingAppointmentsWidget = appointmentsList.isNotEmpty
         ? Card(

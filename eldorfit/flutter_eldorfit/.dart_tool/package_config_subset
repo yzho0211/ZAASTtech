@@ -54,6 +54,10 @@ http_parser
 2.12
 file:///Users/arxhit/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
 file:///Users/arxhit/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
+intl
+2.12
+file:///Users/arxhit/.pub-cache/hosted/pub.dev/intl-0.17.0/
+file:///Users/arxhit/.pub-cache/hosted/pub.dev/intl-0.17.0/lib/
 leak_tracker
 3.1
 file:///Users/arxhit/.pub-cache/hosted/pub.dev/leak_tracker-10.0.0/
@@ -128,8 +132,8 @@ file:///Users/arxhit/.pub-cache/hosted/pub.dev/vm_service-13.0.0/
 file:///Users/arxhit/.pub-cache/hosted/pub.dev/vm_service-13.0.0/lib/
 flutter_eldorfit
 3.3
-file:///Users/arxhit/Assignments/IE/main_project/ZAASTtech/eldorfit/flutter_eldorfit/
-file:///Users/arxhit/Assignments/IE/main_project/ZAASTtech/eldorfit/flutter_eldorfit/lib/
+file:///Users/arxhit/AndroidStudioProjects/eldorfit/flutter_eldorfit/
+file:///Users/arxhit/AndroidStudioProjects/eldorfit/flutter_eldorfit/lib/
 sky_engine
 3.2
 file:///Users/arxhit/Library/flutter/bin/cache/pkg/sky_engine/

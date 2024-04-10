@@ -38,34 +38,71 @@ public class MyFlutterActivity extends FlutterActivity {
         GeneratedPluginRegistrant.registerWith(flutterEngine);
         methodChannel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL_NAME);
         methodChannel.setMethodCallHandler((call, result) -> {
-                    if (call.method.equals("sendDataToJava")) {
+                    if (call.method.equals("sendRefillDataToJava")) {
                         // Handle method call from Flutter
 //                        String dataToSend = "Hello from Android!";
 //                        result.success(dataToSend);
 //                        sendDataToFlutter(dataToSend);
                         String data = call.arguments.toString();
-                        processDataFromFlutter(data);
+                        processRefillDataFromFlutter(data);
 
-                    } else {
+                    } 
+                    else if (call.method.equals("sendAppointmentDataToJava")) {
+//                        System.out.println("Recieved appointment data");
+                        String data = call.arguments.toString();
+                        processAppointmentDataFromFlutter(data);
+                    }
+                    else if(call.method.equals("sendMedicineDataToJava")){
+                        String data = call.arguments.toString();
+                        processMedicineDataFromFlutter(data);
+                    }
+                    else {
                         result.notImplemented();
                     }
                 });
     }
     private Reminder[] reminder;
-    private void processDataFromFlutter(String data) {
+    private Appointment[] appointment;
+    private Medicine[] medicine;
+
+    private void processAppointmentDataFromFlutter(String data) {
         // Process data received from Flutter
-        System.out.println("Data received from Flutter: " + data);
+        // System.out.println("Data received from Flutter: " + data);
+        // Depending on your requirements, you can perform different actions based on the data received.
+        Gson gson = new Gson();
+        this.appointment = gson.fromJson(data, Appointment[].class);
+//        ReminderManager.setReminders(this, Arrays.asList(reminder));
+        for (Appointment appointment_instance : appointment) {
+            long delayMillis = TimeUnit.SECONDS.toMillis(5);
+            createNotification(this, appointment_instance ,delayMillis );
+            System.out.println("Name: " + appointment_instance.getName());
+        }
+    }
+
+    private void processMedicineDataFromFlutter(String data) {
+        // Process data received from Flutter
+        // System.out.println("Data received from Flutter: " + data);
+        // Depending on your requirements, you can perform different actions based on the data received.
+        Gson gson = new Gson();
+        this.medicine = gson.fromJson(data, Medicine[].class);
+//        ReminderManager.setReminders(this, Arrays.asList(reminder));
+        for (Medicine medicne_instance : medicine) {
+            long delayMillis = TimeUnit.SECONDS.toMillis(5);
+            createNotification(this, medicne_instance ,delayMillis );
+            System.out.println("Name: " + medicne_instance.getName());
+        }
+    }
+
+    private void processRefillDataFromFlutter(String data) {
+        // Process data received from Flutter
+        // System.out.println("Data received from Flutter: " + data);
         // Depending on your requirements, you can perform different actions based on the data received.
         Gson gson = new Gson();
         this.reminder = gson.fromJson(data, Reminder[].class);
 //        ReminderManager.setReminders(this, Arrays.asList(reminder));
-        for (Reminder medicine : reminder) {
+        for (Reminder reminder_instance : reminder) {
             long delayMillis = TimeUnit.SECONDS.toMillis(5);
-            createNotification(this, medicine,delayMillis );
-            System.out.println("Name: " + medicine.getName());
-            System.out.println("Amount: " + medicine.getAmount());
-            System.out.println("Times per day: " + medicine.getTimesPerDay());
-            System.out.println("Quantity: " + medicine.getQuantity());
+            createNotification(this, reminder_instance, delayMillis );
         }
     }
 
@@ -88,23 +125,6 @@ public class MyFlutterActivity extends FlutterActivity {
         }
     }
 
-//    private void createNotification(Reminder reminder) {
-//        // Create a notification channel for Android Oreo and above
-//        createNotificationChannel();
-//
-//        // Build the notification
-//        Notification notification = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
-//                .setContentTitle(reminder.getName())
-//                .setContentText(reminder.getAmount())
-//                .setSmallIcon(R.drawable.notification_icon)
-//                .build();
-//
-//        // Display the notification
-//        NotificationManager notificationManager =
-//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        notificationManager.notify(1, notification); // Use a unique notification id
-//    }
-
     private static void createNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "High priority notifications";
@@ -116,6 +136,52 @@ public class MyFlutterActivity extends FlutterActivity {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    public static void createNotification(Context context, Medicine medicine, long delayMillis) {
+        // Create a notification channel for Android Oreo and above
+        createNotificationChannel(context);
+
+        // Delay the creation and display of the notification
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Build the notification
+                Notification notification = new Notification.Builder(context, NOTIFICATION_CHANNEL_ID)
+                        .setContentTitle(medicine.getName())
+                        .setContentText(medicine.getInstructions())
+                        .setSmallIcon(R.drawable.notification_icon)
+                        .build();
+
+                // Display the notification
+                NotificationManager notificationManager =
+                        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(1, notification); // Use a unique notification id
+            }
+        }, delayMillis);
+    }
+
+    public static void createNotification(Context context, Appointment appointment, long delayMillis) {
+        // Create a notification channel for Android Oreo and above
+        createNotificationChannel(context);
+
+        // Delay the creation and display of the notification
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Build the notification
+                Notification notification = new Notification.Builder(context, NOTIFICATION_CHANNEL_ID)
+                        .setContentTitle(appointment.getName())
+                        .setContentText(appointment.getDate())
+                        .setSmallIcon(R.drawable.notification_icon)
+                        .build();
+
+                // Display the notification
+                NotificationManager notificationManager =
+                        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(1, notification); // Use a unique notification id
+            }
+        }, delayMillis);
     }
 
     public static void createNotification(Context context, Reminder reminder, long delayMillis) {
