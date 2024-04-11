@@ -17,7 +17,7 @@ class MealPlanPage2 extends StatefulWidget {
 }
 
 class _MealPlanPage2State extends State<MealPlanPage2> {
-  List<Map<String, dynamic>> mealPlan = [];
+  Map<String, dynamic> mealPlan = {};
   String errorMessage = '';
 
   @override
@@ -37,7 +37,7 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         setState(() {
-          mealPlan = List<Map<String, dynamic>>.from(data['week'].values);
+          mealPlan = Map<String, dynamic>.from(data['week']);
         });
       } else {
         setState(() {
@@ -59,49 +59,77 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
       ),
       body: errorMessage.isNotEmpty
           ? Center(
-        child: Text(
-          errorMessage,
-          style: TextStyle(fontSize: 20, color: Colors.red),
-        ),
-      )
+              child: Text(
+                errorMessage,
+                style: TextStyle(fontSize: 20, color: Colors.red),
+              ),
+            )
           : mealPlan.isEmpty
-          ? Center(
-        child: Text(
-          'No meal data found for the week',
-          style: TextStyle(fontSize: 20),
-        ),
-      )
-          : ListView.builder(
-        itemCount: mealPlan.length,
-        itemBuilder: (context, index) {
-          var dayPlan = mealPlan[index];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Day ${index + 1}: ${dayPlan['day']}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              ? Center(
+                  child: Text(
+                    'No meal data found for the week',
+                    style: TextStyle(fontSize: 20),
                   ),
+                )
+              : ListView.builder(
+                  itemCount: mealPlan.length,
+                  itemBuilder: (context, index) {
+                    var dayKey = mealPlan.keys.toList()[index];
+                    var dayPlan = mealPlan[dayKey];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            '${dayKey.toUpperCase()}',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                              'Breakfast: ${dayPlan['meals'][0]['title']}'),
+                        ),
+                        ListTile(
+                          title: Text('Lunch: ${dayPlan['meals'][1]['title']}'),
+                        ),
+                        ListTile(
+                          title:
+                              Text('Dinner: ${dayPlan['meals'][2]['title']}'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            'Nutrients:',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                              'Calories: ${dayPlan['nutrients']['calories']}'),
+                        ),
+                        ListTile(
+                          title: Text(
+                              'Protein: ${dayPlan['nutrients']['protein']}'),
+                        ),
+                        ListTile(
+                          title: Text('Fat: ${dayPlan['nutrients']['fat']}'),
+                        ),
+                        ListTile(
+                          title: Text(
+                              'Carbohydrates: ${dayPlan['nutrients']['carbohydrates']}'),
+                        ),
+                        Divider(),
+                      ],
+                    );
+                  },
                 ),
-              ),
-              ListTile(
-                title: Text('Breakfast: ${dayPlan['meals'][0]['title']}'),
-              ),
-              ListTile(
-                title: Text('Lunch: ${dayPlan['meals'][1]['title']}'),
-              ),
-              ListTile(
-                title: Text('Dinner: ${dayPlan['meals'][2]['title']}'),
-              ),
-              Divider(),
-            ],
-          );
-        },
-      ),
     );
   }
 }
