@@ -55,6 +55,7 @@ class RefillsPage1 extends StatelessWidget {
   //------------------- FROM HERE -------------------------
 
   static const platform = MethodChannel('flutter.java.channel');
+  // ignore: unused_field
   static String _dataJavaToFlutter = "";
   static String _dataFlutterToJava = "";
 

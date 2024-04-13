@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'appointments_p2.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+// ignore: unused_import
 import 'package:intl/intl.dart';
 
 class Appointment {
@@ -37,6 +38,7 @@ class AppointmentsPage1 extends StatelessWidget {
   const AppointmentsPage1({Key? key}) : super(key: key);
 
   static const platform = MethodChannel('flutter.java.channel');
+  // ignore: unused_field
   static String _dataJavaToFlutter = "";
   static String _dataFlutterToJava = "";
 

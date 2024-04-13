@@ -3,8 +3,8 @@ import 'medrem_p1.dart'; // This file contains the MedicineRemindersPage1 class 
 import 'refills_p1.dart'; // This file contains the RefillsPage1 class
 import 'appointments_p1.dart'; // This file contains the AppointmentsPage1 class and appointmentsList
 import '../widgets/backgroundcont.dart'; // This file contains the BackgroundContainer class
-import 'health_p1.dart'; // Assuming this file contains the HealthAwarenessPage class or similar
-import 'mealpl_p1.dart'; // Assuming this file contains the MealPlanPage1 class
+import 'health_p1.dart'; // This file should now contain the HealthPage class
+import 'mealpl_p1.dart'; // This file contains the MealPlanPage1 class
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -32,13 +32,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void navigateToHealthAwareness() {
-    // Replace with your actual Health Awareness Page navigation
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => QuizPage()));
+        context, MaterialPageRoute(builder: (context) => HealthPage()));
   }
 
   void navigateToMealPlanner() {
-    // Replace with your actual Meal Planner Page navigation
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const MealPlanPage1()));
   }
@@ -201,3 +199,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+

@@ -43,7 +43,6 @@ class MedicineRemindersPage1 extends StatefulWidget {
 
 class _MedicineRemindersPage1State extends State<MedicineRemindersPage1> {
   static const platform = MethodChannel('flutter.java.channel');
-  static String _dataJavaToFlutter = "";
   static String _dataFlutterToJava = "";
 
   static Future<void> _invokeAndroidMethod() async {
@@ -67,7 +66,6 @@ class _MedicineRemindersPage1State extends State<MedicineRemindersPage1> {
   }
 
   static void setDataFromAndroid(String data) {
-    _dataJavaToFlutter = data;
   }
 
   void sendMessage() {
