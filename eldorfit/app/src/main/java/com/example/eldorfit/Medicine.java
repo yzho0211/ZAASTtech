@@ -9,10 +9,10 @@ public class Medicine {
     private String amount;
 
     @SerializedName("time")
-    private String time;
+    private String[] time;
 
     @SerializedName("days")
-    private String days;
+    private String[] days;
 
     @SerializedName("instructions")
     private String instructions;
@@ -21,7 +21,7 @@ public class Medicine {
     public Medicine() {
     }
 
-    public Medicine(String name, String amount, String time, String days, String instructions) {
+    public Medicine(String name, String amount, String[] time, String[] days, String instructions) {
         this.name = name;
         this.amount = amount;
         this.time = time;
@@ -39,11 +39,11 @@ public class Medicine {
         return amount;
     }
 
-    public String getTime() {
+    public String[] getTime() {
         return time;
     }
 
-    public String getDay() {
+    public String[] getDay() {
         return days;
     }
 

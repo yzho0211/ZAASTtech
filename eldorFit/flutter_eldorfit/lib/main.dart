@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'pages/homepage.dart';
+import 'pages/refills.dart';
+import 'pages/add_refill.dart';
+import 'pages/add_medicine.dart';
+import 'pages/medicine_reminder.dart';
+import 'pages/appointments.dart';
+import 'pages/add_appointment.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'EldorFit',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(color: Colors.black), // Change hamburger icon color
-        ),
+  runApp(MaterialApp(
+    title: 'EldorFit',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
+      useMaterial3: true,
+      appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(color: Colors.black),
       ),
-      home: const MyHomePage(),
-    );
-  }
+    ),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => MyHomePage(),
+      '/refills': (context) => Refills(),
+      '/add_refill': (context) => AddRefill(),
+      '/appointments': (context) => Appointments(),
+      '/add_appointment': (context) => AddAppointment(),
+      '/medicines': (context) => MedicineReminders(),
+      '/add_medicine': (context) => AddMedicine(),
+    },
+  ));
 }
-

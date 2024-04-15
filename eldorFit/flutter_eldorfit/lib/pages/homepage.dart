@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'medrem_p1.dart'; // This file contains the MedicineRemindersPage1 class and global medicine reminders list
-import 'refills_p1.dart'; // This file contains the RefillsPage1 class
-import 'appointments_p1.dart'; // This file contains the AppointmentsPage1 class and appointmentsList
 import '../widgets/backgroundcont.dart'; // This file contains the BackgroundContainer class
 import 'health_p1.dart'; // This file should now contain the HealthPage class
 import 'mealpl_p1.dart'; // This file contains the MealPlanPage1 class
@@ -15,20 +12,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void navigateToMedicineReminders() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const MedicineRemindersPage1()));
+    Navigator.pushNamed(context, '/medicines');
   }
 
   void navigateToRefills() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const RefillsPage1()));
+    Navigator.pushNamed(context, '/refills');
   }
 
   void navigateToAppointments() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const AppointmentsPage1()));
+    Navigator.pushNamed(context, '/appointments');
   }
 
   void navigateToHealthAwareness() {
@@ -43,31 +35,53 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget upcomingMedicineRemindersWidget = medicineReminders.isNotEmpty
-        ? Card(
-            color: Colors.yellow,
-            child: ListTile(
-              title: const Text('You have upcoming medicine reminders',
-                  style: TextStyle(color: Colors.black)),
-              onTap: navigateToMedicineReminders,
-            ),
-          )
-        : SizedBox.shrink();
+    // Widget upcomingMedicineRemindersWidget = medicineReminders.isNotEmpty
+    //     ? Card(
+    //         color: Colors.yellow,
+    //         child: ListTile(
+    //           title: const Text('You have upcoming medicine reminders',
+    //               style: TextStyle(color: Colors.black)),
+    //           onTap: navigateToMedicineReminders,
+    //         ),
+    //       )
+    //     : SizedBox.shrink();
 
-    Widget upcomingAppointmentsWidget = appointmentsList.isNotEmpty
-        ? Card(
-            color: Colors.white,
-            child: ListTile(
-              title: const Text('You have upcoming appointments',
-                  style: TextStyle(color: Colors.black)),
-              onTap: navigateToAppointments,
-            ),
-          )
-        : SizedBox.shrink();
+    // Widget upcomingAppointmentsWidget = appointmentsList.isNotEmpty
+    //     ? Card(
+    //         color: Colors.white,
+    //         child: ListTile(
+    //           title: const Text('You have upcoming appointments',
+    //               style: TextStyle(color: Colors.black)),
+    //           onTap: navigateToAppointments,
+    //         ),
+    //       )
+    //     : SizedBox.shrink();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('EldorFit'),
+        title: RichText(
+          textAlign: TextAlign.center, // Center align the text
+          text: const TextSpan(
+            children: [
+              TextSpan(
+                text: 'Eldor',
+                style: TextStyle(
+                  color: Colors.black, // Black color for "Elder"
+                  fontSize: 24,
+                ),
+              ),
+              TextSpan(
+                text: 'Fit',
+                style: TextStyle(
+                  color: Color.fromARGB(
+                      255, 234, 180, 3), // Yellow color for "Fit"
+                  fontSize: 24,
+                ),
+              ),
+            ],
+          ),
+        ),
+        centerTitle: true, // Center align the title,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -90,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const Divider(height: 20, thickness: 2),
-              upcomingMedicineRemindersWidget,
-              upcomingAppointmentsWidget,
+              // upcomingMedicineRemindersWidget,
+              // upcomingAppointmentsWidget,
               const SizedBox(height: 20),
               GridView.count(
                 crossAxisCount: 2,
@@ -199,4 +213,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
