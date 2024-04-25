@@ -31,7 +31,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void navigateToMealPlanner() {
-    Navigator.pushNamed(context, '/mealplan_p1');
+    Navigator.pushNamed(context, '/mealpl_p1');
+  }
+
+  void navigateToDisclaimer() {
+    Navigator.pushNamed(context, '/disclaimer');
   }
 
   @override
@@ -156,6 +160,11 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: const Icon(Icons.replay),
             title: const Text('Translate Now'),
             onTap: navigateToRefills,
+          ),
+          ListTile(
+            leading: const Icon(Icons.replay),
+            title: const Text('Disclaimer'),
+            onTap: navigateToDisclaimer,
           ),
         ],
       ),

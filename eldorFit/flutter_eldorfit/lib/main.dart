@@ -10,6 +10,7 @@ import 'pages/mealpl_p1.dart';
 import 'pages/health_p1.dart';
 import 'pages/quiz.dart';
 import 'pages/reminders.dart';
+import 'pages/disclaimer.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -30,10 +31,11 @@ void main() {
       '/add_appointment': (context) => AddAppointment(),
       '/medicines': (context) => MedicineReminders(),
       '/add_medicine': (context) => AddMedicine(),
-      '/mealplan_p1': (context) => MealPlanPage1(),
+      '/mealpl_p1': (context) => MealPlanPage1(),
       '/health_p1': (context) => HealthPage(),
       '/quiz': (context) => QuizPage(),
       '/reminders': (context) => ReminderPage(),
+      '/disclaimer': (context) => DisclaimerPage(),
     },
   ));
 }
