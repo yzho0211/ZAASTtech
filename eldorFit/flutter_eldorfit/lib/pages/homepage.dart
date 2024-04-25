@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/backgroundcont.dart'; // This file contains the BackgroundContainer class
-import 'health_p1.dart'; // This file should now contain the HealthPage class
-import 'mealpl_p1.dart'; // This file contains the MealPlanPage1 class
+import '../widgets/backgroundcont.dart'; //
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -11,6 +9,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   void navigateToMedicineReminders() {
     Navigator.pushNamed(context, '/medicines');
   }
@@ -23,144 +22,94 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pushNamed(context, '/appointments');
   }
 
+  void navigateToReminders() {
+    Navigator.pushNamed(context, '/reminders');
+  }
+
   void navigateToHealthAwareness() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HealthPage()));
+    Navigator.pushNamed(context, '/health_p1');
   }
 
   void navigateToMealPlanner() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const MealPlanPage1()));
+    Navigator.pushNamed(context, '/mealplan_p1');
   }
 
   @override
   Widget build(BuildContext context) {
-    // Widget upcomingMedicineRemindersWidget = medicineReminders.isNotEmpty
-    //     ? Card(
-    //         color: Colors.yellow,
-    //         child: ListTile(
-    //           title: const Text('You have upcoming medicine reminders',
-    //               style: TextStyle(color: Colors.black)),
-    //           onTap: navigateToMedicineReminders,
-    //         ),
-    //       )
-    //     : SizedBox.shrink();
-
-    // Widget upcomingAppointmentsWidget = appointmentsList.isNotEmpty
-    //     ? Card(
-    //         color: Colors.white,
-    //         child: ListTile(
-    //           title: const Text('You have upcoming appointments',
-    //               style: TextStyle(color: Colors.black)),
-    //           onTap: navigateToAppointments,
-    //         ),
-    //       )
-    //     : SizedBox.shrink();
-
     return Scaffold(
-      appBar: AppBar(
-        title: RichText(
-          textAlign: TextAlign.center, // Center align the text
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'Eldor',
-                style: TextStyle(
-                  color: Colors.black, // Black color for "Elder"
-                  fontSize: 24,
-                ),
-              ),
-              TextSpan(
-                text: 'Fit',
-                style: TextStyle(
-                  color: Color.fromARGB(
-                      255, 234, 180, 3), // Yellow color for "Fit"
-                  fontSize: 24,
-                ),
-              ),
-            ],
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: const Text('Welcome page'),
+          leading: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              _scaffoldKey.currentState!.openDrawer();
+            },
           ),
         ),
-        centerTitle: true, // Center align the title,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu_book),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            );
-          },
-        ),
-      ),
-      body: BackgroundContainer(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              Center(
-                child: Text(
-                  'Welcome to EldorFit',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-              ),
-              const Divider(height: 20, thickness: 2),
-              // upcomingMedicineRemindersWidget,
-              // upcomingAppointmentsWidget,
-              const SizedBox(height: 20),
-              GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: <Widget>[
-                  _buildCard(context, 'Appointments', Icons.calendar_today,
-                      navigateToAppointments),
-                  _buildCard(context, 'Your Refills', Icons.local_pharmacy,
-                      navigateToRefills),
-                  _buildCard(context, 'Medicine Reminders', Icons.book,
-                      navigateToMedicineReminders),
-                  _buildCard(context, 'Learn about health topics', Icons.school,
-                      navigateToHealthAwareness),
-                  _buildCard(context, 'Your Meal Planner',
-                      Icons.restaurant_menu, navigateToMealPlanner),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  'EldorFit\nYour guide to better health and happiness!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 16,
+        body: BackgroundContainer(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 32),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    'Welcome to\nEldorFit',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-            ],
+                const Text(
+                  'Your Guide to Better Health and Happiness',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFFF8F7F9),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                _buildHomeButton(
+                    context,
+                    'Set reminders for medicines, refills and appointments',
+                    Icons.alarm,
+                    navigateToReminders),
+                _buildHomeButton(context, 'Track your health & activity data',
+                    Icons.favorite_border, navigateToMedicineReminders),
+                _buildHomeButton(
+                    context,
+                    'Learn the latest information on heart disease',
+                    Icons.favorite,
+                    navigateToHealthAwareness),
+                _buildHomeButton(context, 'Generate your meal plan for a week',
+                    Icons.restaurant_menu, navigateToMealPlanner),
+                // ... 为其他按钮重复使用_buildHomeButton...
+              ],
+            ),
           ),
         ),
-      ),
-      drawer: _buildDrawer(context),
-    );
+        drawer: _buildDrawer(context));
   }
 
-  Widget _buildCard(
-      BuildContext context, String title, IconData icon, VoidCallback onTap) {
-    return Card(
-      elevation: 4.0,
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(icon, size: 40),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(title, textAlign: TextAlign.center),
-            ),
-          ],
+  Widget _buildHomeButton(BuildContext context, String text, IconData icon,
+      VoidCallback onPressed) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+      child: ElevatedButton.icon(
+        icon: Icon(icon, color: Colors.white),
+        label: Text(
+          text,
+          style: const TextStyle(color: Color(0xFFF8F7F9)),
+        ),
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.deepPurple,
+          foregroundColor: Color(0xFFF8F7F9),
         ),
       ),
     );
@@ -185,18 +134,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ListTile(
             leading: const Icon(Icons.calendar_today),
-            title: const Text('Appointments'),
-            onTap: navigateToAppointments,
+            title: const Text('Your Reminders'),
+            onTap: navigateToReminders,
           ),
           ListTile(
             leading: const Icon(Icons.local_pharmacy),
-            title: const Text('Medicine Reminders'),
+            title: const Text('Your Health Data'),
             onTap: navigateToMedicineReminders,
-          ),
-          ListTile(
-            leading: const Icon(Icons.replay),
-            title: const Text('Refills'),
-            onTap: navigateToRefills,
           ),
           ListTile(
             leading: const Icon(Icons.school),
@@ -207,6 +151,11 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: const Icon(Icons.restaurant_menu),
             title: const Text('Meal Planner'),
             onTap: navigateToMealPlanner,
+          ),
+          ListTile(
+            leading: const Icon(Icons.replay),
+            title: const Text('Translate Now'),
+            onTap: navigateToRefills,
           ),
         ],
       ),
