@@ -88,7 +88,7 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
       margin: const EdgeInsets.all(8.0),
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: Colors.blue, // Blue background color for the card
+        color: Color(0xFF19297C), // Blue background color for the card
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Column(
@@ -99,7 +99,7 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Color(0xFFF8F7F9),
             ),
           ),
           _buildMealDetail('Breakfast', dayPlan['meals'][0]['title']),
@@ -119,7 +119,7 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
         '$mealName: $mealTitle',
         style: const TextStyle(
           fontSize: 22, // Larger font size
-          color: Colors.white,
+          color: Color(0xFFF8F7F9),
         ),
       ),
     );
@@ -137,21 +137,21 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
             style: const TextStyle(
               fontSize: 20, // Larger font size
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Color(0xFFF8F7F9),
             ),
           ),
           Text('Calories: ${nutrients['calories']}',
               style: const TextStyle(
-                  fontSize: 20, color: Colors.white)), // Larger font size
+                  fontSize: 20, color: Color(0xFFF8F7F9))), // Larger font size
           Text('Protein: ${nutrients['protein']}',
               style: const TextStyle(
-                  fontSize: 20, color: Colors.white)), // Larger font size
+                  fontSize: 20, color: Color(0xFFF8F7F9))), // Larger font size
           Text('Fat: ${nutrients['fat']}',
               style: const TextStyle(
-                  fontSize: 20, color: Colors.white)), // Larger font size
+                  fontSize: 20, color: Color(0xFFF8F7F9))), // Larger font size
           Text('Carbs: ${nutrients['carbohydrates']}',
               style: const TextStyle(
-                  fontSize: 20, color: Colors.white)), // Larger font size
+                  fontSize: 20, color: Color(0xFFF8F7F9))), // Larger font size
         ],
       ),
     );
