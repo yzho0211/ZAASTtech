@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/backgroundcont.dart'; //
+import '../widgets/backgroundcont.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -10,6 +10,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   void navigateToMedicineReminders() {
     Navigator.pushNamed(context, '/medicines');
   }
@@ -41,80 +42,111 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text('Welcome page'),
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              _scaffoldKey.currentState!.openDrawer();
-            },
-          ),
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: const Text('Welcome page'),
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
         ),
-        body: BackgroundContainer(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 32),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    'Welcome to\nEldorFit',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const Text(
-                  'Your Guide to Better Health and Happiness',
+      ),
+      body: BackgroundContainer(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 32),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Welcome to\nEldorFit',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 18,
-                    color: Color(0xFFF8F7F9),
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF19297C),
                   ),
                 ),
-                const SizedBox(height: 24),
-                _buildHomeButton(
-                    context,
-                    'Set reminders for medicines, refills and appointments',
-                    Icons.alarm,
-                    navigateToReminders),
-                _buildHomeButton(context, 'Track your health & activity data',
-                    Icons.favorite_border, navigateToMedicineReminders),
-                _buildHomeButton(
-                    context,
-                    'Learn the latest information on heart disease',
-                    Icons.favorite,
-                    navigateToHealthAwareness),
-                _buildHomeButton(context, 'Generate your meal plan for a week',
-                    Icons.restaurant_menu, navigateToMealPlanner),
-                // ... 为其他按钮重复使用_buildHomeButton...
-              ],
-            ),
+              ),
+              const Text(
+                'Your Guide to Better Health and Happiness',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color(0xFF19297C),
+                ),
+              ),
+              const SizedBox(height: 24),
+              _buildHomeButton(
+                context,
+                'Your Reminders',
+                'Set reminders for medicines, refills and appointments',
+                navigateToReminders,
+              ),
+              _buildHomeButton(
+                context,
+                'Your Health Data',
+                'Track your health & activity data',
+                navigateToMedicineReminders,
+              ),
+              _buildHomeButton(
+                context,
+                'Be HeartWise',
+                'Learn the latest information on heart disease',
+                navigateToHealthAwareness,
+              ),
+              _buildHomeButton(
+                context,
+                'Meal Plan',
+                'Generate your meal plan for a week',
+                navigateToMealPlanner,
+              ),
+            ],
           ),
         ),
-        drawer: _buildDrawer(context));
+      ),
+      drawer: _buildDrawer(context),
+    );
   }
 
-  Widget _buildHomeButton(BuildContext context, String text, IconData icon,
-      VoidCallback onPressed) {
+  Widget _buildHomeButton(
+    BuildContext context,
+    String buttonText,
+    String buttonTitle,
+    VoidCallback onPressed,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-      child: ElevatedButton.icon(
-        icon: Icon(icon, color: Colors.white),
-        label: Text(
-          text,
-          style: const TextStyle(color: Color(0xFFF8F7F9)),
-        ),
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.deepPurple,
-          foregroundColor: Color(0xFFF8F7F9),
-        ),
+      child: Column(
+        children: [
+          Text(
+            buttonTitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Color(0xFF19297C),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: onPressed,
+            child: Text(
+              buttonText,
+              style: const TextStyle(
+                fontSize: 28,
+                color: Color(0xFFFEE440),
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 25, 42, 124),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              minimumSize: Size(double.infinity, 50),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -162,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: navigateToRefills,
           ),
           ListTile(
-            leading: const Icon(Icons.replay),
+            leading: const Icon(Icons.info),
             title: const Text('Disclaimer'),
             onTap: navigateToDisclaimer,
           ),
