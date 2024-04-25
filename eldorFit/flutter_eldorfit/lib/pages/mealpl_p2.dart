@@ -6,7 +6,7 @@ class MealPlanPage2 extends StatefulWidget {
   final String targetCalories;
   final String diet;
 
-  MealPlanPage2({
+  const MealPlanPage2({
     Key? key,
     required this.targetCalories,
     required this.diet,
@@ -61,11 +61,11 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
           ? Center(
               child: Text(
                 errorMessage,
-                style: TextStyle(fontSize: 20, color: Colors.red),
+                style: const TextStyle(fontSize: 20, color: Colors.red),
               ),
             )
           : mealPlan.isEmpty
-              ? Center(
+              ? const Center(
                   child: Text(
                     'No meal data found for the week',
                     style: TextStyle(fontSize: 20),
@@ -76,60 +76,84 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
                   itemBuilder: (context, index) {
                     var dayKey = mealPlan.keys.toList()[index];
                     var dayPlan = mealPlan[dayKey];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '${dayKey.toUpperCase()}',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                              'Breakfast: ${dayPlan['meals'][0]['title']}'),
-                        ),
-                        ListTile(
-                          title: Text('Lunch: ${dayPlan['meals'][1]['title']}'),
-                        ),
-                        ListTile(
-                          title:
-                              Text('Dinner: ${dayPlan['meals'][2]['title']}'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text(
-                            'Nutrients:',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                              'Calories: ${dayPlan['nutrients']['calories']}'),
-                        ),
-                        ListTile(
-                          title: Text(
-                              'Protein: ${dayPlan['nutrients']['protein']}'),
-                        ),
-                        ListTile(
-                          title: Text('Fat: ${dayPlan['nutrients']['fat']}'),
-                        ),
-                        ListTile(
-                          title: Text(
-                              'Carbohydrates: ${dayPlan['nutrients']['carbohydrates']}'),
-                        ),
-                        Divider(),
-                      ],
-                    );
+                    return _buildDayCard(dayKey, dayPlan);
                   },
                 ),
+    );
+  }
+
+  Widget _buildDayCard(String dayKey, dynamic dayPlan) {
+    // Create a card with blue background for each day
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Colors.blue, // Blue background color for the card
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            dayKey.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          _buildMealDetail('Breakfast', dayPlan['meals'][0]['title']),
+          _buildMealDetail('Lunch', dayPlan['meals'][1]['title']),
+          _buildMealDetail('Dinner', dayPlan['meals'][2]['title']),
+          _buildNutrientInfo(dayPlan['nutrients']),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMealDetail(String mealName, String mealTitle) {
+    // Display meal details with larger font and more space between meals
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0), // Increase spacing
+      child: Text(
+        '$mealName: $mealTitle',
+        style: const TextStyle(
+          fontSize: 22, // Larger font size
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNutrientInfo(Map<String, dynamic> nutrients) {
+    // Display nutrients information with each nutrient on a separate line
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0), // Increase spacing
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Nutrition:',
+            style: const TextStyle(
+              fontSize: 20, // Larger font size
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          Text('Calories: ${nutrients['calories']}',
+              style: const TextStyle(
+                  fontSize: 20, color: Colors.white)), // Larger font size
+          Text('Protein: ${nutrients['protein']}',
+              style: const TextStyle(
+                  fontSize: 20, color: Colors.white)), // Larger font size
+          Text('Fat: ${nutrients['fat']}',
+              style: const TextStyle(
+                  fontSize: 20, color: Colors.white)), // Larger font size
+          Text('Carbs: ${nutrients['carbohydrates']}',
+              style: const TextStyle(
+                  fontSize: 20, color: Colors.white)), // Larger font size
+        ],
+      ),
     );
   }
 }
