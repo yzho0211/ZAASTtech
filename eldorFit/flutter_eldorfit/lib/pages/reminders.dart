@@ -47,27 +47,27 @@ class _ReminderPageState extends State<ReminderPage> {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Color(0xFF19297C),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
               _buildReminderButton(
                 context,
-                'Medication Reminders',
-                Icons.alarm,
+                'Your Medicines',
+                'Set a reminder to take your medicines',
                 navigateToMedicineReminders,
               ),
               _buildReminderButton(
                 context,
-                'Appointment Reminders',
-                Icons.calendar_today,
+                'Your Appointments',
+                'Set a reminder for your doctor’s appointments',
                 navigateToAppointmentReminders,
               ),
               _buildReminderButton(
                 context,
                 'Refill Reminders',
-                Icons.replay,
+                'Set a reminder to refill your prescription',
                 navigateToRefillReminders,
               ),
             ],
@@ -79,23 +79,40 @@ class _ReminderPageState extends State<ReminderPage> {
 
   Widget _buildReminderButton(
     BuildContext context,
-    String text,
-    IconData icon,
+    String buttonText,
+    String buttonTitle,
     VoidCallback onPressed,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-      child: ElevatedButton.icon(
-        icon: Icon(icon, color: Colors.white),
-        label: Text(
-          text,
-          style: const TextStyle(color: Color(0xFFF8F7F9)),
-        ),
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.deepPurple,
-          foregroundColor: Color(0xFFF8F7F9),
-        ),
+      child: Column(
+        children: [
+          Text(
+            buttonTitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Color(0xFF19297C),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: onPressed,
+            child: Text(
+              buttonText,
+              style: const TextStyle(
+                fontSize: 28,
+                color: Color(0xFFFEE440),
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 25, 42, 124),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              minimumSize: Size(double.infinity, 50),
+            ),
+          ),
+        ],
       ),
     );
   }

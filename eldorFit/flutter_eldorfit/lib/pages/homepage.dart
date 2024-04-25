@@ -141,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Color.fromARGB(255, 25, 42, 124),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(30),
               ),
               minimumSize: Size(double.infinity, 50),
             ),
