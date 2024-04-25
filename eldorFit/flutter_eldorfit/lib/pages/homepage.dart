@@ -44,12 +44,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Welcome page'),
+        title: Text(''), // 将标题设置为空
         leading: IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {
             _scaffoldKey.currentState!.openDrawer();
           },
+        ),
+        flexibleSpace: Center(
+          child: Image.asset(
+            'assets/images/EldorFit.png', // 替换为你的logo图像路径
+            width: 120, // 根据需要调整宽度
+          ),
         ),
       ),
       body: BackgroundContainer(
@@ -161,10 +167,10 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Theme.of(context).primaryColor,
             ),
             child: const Text(
-              'Menu',
+              'Negivation',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24,
+                fontSize: 30,
               ),
             ),
           ),
