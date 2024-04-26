@@ -39,23 +39,21 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pushNamed(context, '/disclaimer');
   }
 
+  void navigateToTranslate() {
+    Navigator.pushNamed(context, '/translate');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(''), // 将标题设置为空
+        title: const Text('Welcome page'),
         leading: IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {
             _scaffoldKey.currentState!.openDrawer();
           },
-        ),
-        flexibleSpace: Center(
-          child: Image.asset(
-            'assets/images/EldorFit.png', // 替换为你的logo图像路径
-            width: 120, // 根据需要调整宽度
-          ),
         ),
       ),
       body: BackgroundContainer(
@@ -167,10 +165,10 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Theme.of(context).primaryColor,
             ),
             child: const Text(
-              'Negivation',
+              'Menu',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 30,
+                fontSize: 24,
               ),
             ),
           ),
@@ -197,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             leading: const Icon(Icons.replay),
             title: const Text('Translate Now'),
-            onTap: navigateToRefills,
+            onTap: navigateToTranslate,
           ),
           ListTile(
             leading: const Icon(Icons.info),
