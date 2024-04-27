@@ -11,7 +11,7 @@ import 'pages/health_p1.dart';
 import 'pages/quiz.dart';
 import 'pages/reminders.dart';
 import 'pages/disclaimer.dart';
-import 'pages/translate.dart';
+import 'pages/translation.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -37,7 +37,7 @@ void main() {
       '/quiz': (context) => QuizPage(),
       '/reminders': (context) => ReminderPage(),
       '/disclaimer': (context) => DisclaimerPage(),
-      '/translate': (context) => TranslationPage(),
+      '/translation': (context) => TranslationPage(),
     },
   ));
 }

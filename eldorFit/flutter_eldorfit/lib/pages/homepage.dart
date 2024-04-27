@@ -39,8 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pushNamed(context, '/disclaimer');
   }
 
-  void navigateToTranslate() {
-    Navigator.pushNamed(context, '/translate');
+  void navigateToTranslation() {
+    Navigator.pushNamed(context, '/translation');
   }
 
   @override
@@ -195,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             leading: const Icon(Icons.replay),
             title: const Text('Translate Now'),
-            onTap: navigateToTranslate,
+            onTap: navigateToTranslation,
           ),
           ListTile(
             leading: const Icon(Icons.info),

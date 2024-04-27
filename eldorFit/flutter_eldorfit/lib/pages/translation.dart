@@ -30,7 +30,7 @@ class _TranslationPageState extends State<TranslationPage> {
   Future<void> translateText(String input, String targetLang) async {
     final apiKey =
         '00aef7ed-014c-4dde-8d62-bfcff2d5416c:fx'; // Replace with your actual API key
-    final url = Uri.parse('https://api.deepl.com/v2/translate');
+    final url = Uri.parse('https://api-free.deepl.com/v2/translate');
 
     setState(() => _isLoading = true);
 
@@ -42,7 +42,7 @@ class _TranslationPageState extends State<TranslationPage> {
           'Authorization': 'DeepL-Auth-Key $apiKey',
         },
         body: jsonEncode({
-          'text': input,
+          'text': [input], // Adjusted to be an array
           'target_lang': targetLang,
         }),
       );
@@ -53,15 +53,12 @@ class _TranslationPageState extends State<TranslationPage> {
           _translation = jsonResponse['translations'][0]['text'];
         });
       } else {
-        print('Request failed with status: ${response.statusCode}.');
-        print('Response body: ${response.body}');
         setState(() {
           _translation =
               'Translation failed. Status code: ${response.statusCode}';
         });
       }
     } catch (e) {
-      print('Caught error: $e');
       setState(() {
         _translation = 'Translation failed: $e';
       });
@@ -74,55 +71,37 @@ class _TranslationPageState extends State<TranslationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Translate Now'),
-        backgroundColor: Color(0xFFC9B1FA),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        title: const Text('Generate Your Meal Plan'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              'Translate text from English to your target language',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Choose Your Target Language',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
-            DropdownButtonFormField<String>(
+            DropdownButton<String>(
               value: selectedLanguage,
-              icon: Icon(Icons.arrow_downward),
-              decoration: InputDecoration(
-                labelText: "Translate to",
-                filled: true,
-                fillColor: Colors.blue[100],
-              ),
               onChanged: (String? newValue) {
                 setState(() {
-                  selectedLanguage = newValue;
+                  selectedLanguage = newValue!;
                 });
               },
-              items: targetLanguageCodes.keys.map((String language) {
+              items: targetLanguageCodes.entries
+                  .map<DropdownMenuItem<String>>((entry) {
                 return DropdownMenuItem<String>(
-                  value: language,
-                  child: Text(language),
+                  value: entry.value,
+                  child: Text(entry.key),
                 );
               }).toList(),
             ),
             SizedBox(height: 20),
-            TextField(
+            TextFormField(
               controller: _textEditingController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter text here...',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: () {
-                    _textEditingController.clear();
-                  },
-                ),
               ),
             ),
             SizedBox(height: 20),
@@ -130,26 +109,22 @@ class _TranslationPageState extends State<TranslationPage> {
               onPressed: _isLoading || selectedLanguage == null
                   ? null
                   : () {
-                      if (_textEditingController.text.isNotEmpty) {
-                        translateText(
-                          _textEditingController.text,
-                          targetLanguageCodes[selectedLanguage]!,
-                        );
-                      }
+                      translateText(
+                          _textEditingController.text, selectedLanguage!);
                     },
-              child:
-                  _isLoading ? CircularProgressIndicator() : Text('Translate'),
+              child: _isLoading
+                  ? CircularProgressIndicator()
+                  : const Text('Translate'),
             ),
             SizedBox(height: 20),
             Text(
               _translation,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(fontSize: 24),
             ),
           ],
         ),
       ),
-      backgroundColor: Color(0xFFC9B1FA),
     );
   }
 }
