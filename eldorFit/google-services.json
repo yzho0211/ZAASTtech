@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "584192859176",
+    "firebase_url": "https://sensorbox-9123f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sensorbox-9123f",
+    "storage_bucket": "sensorbox-9123f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584192859176:android:64a6fb3c1fa0b49ecae91d",
+        "android_client_info": {
+          "package_name": "com.example.eldorfit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkPYxaoyDLNIy8RDfLIFUhMN0o5yVRKPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584192859176:android:a062057e806355f8cae91d",
+        "android_client_info": {
+          "package_name": "motionapps.sensorbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkPYxaoyDLNIy8RDfLIFUhMN0o5yVRKPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

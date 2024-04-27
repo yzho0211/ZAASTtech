@@ -8,6 +8,13 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 import io.flutter.plugin.common.MethodChannel;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import android.Manifest;
 import android.app.Notification;
@@ -22,6 +29,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import java.util.concurrent.TimeUnit;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 
@@ -31,6 +40,10 @@ public class MyFlutterActivity extends FlutterActivity {
     private MethodChannel methodChannel;
     private static final int PERMISSION_REQUEST_CODE = 100000;
     private static final String NOTIFICATION_CHANNEL_ID = "notification.id";
+//    private DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+
+
+
     @Override
     public void configureFlutterEngine(FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
@@ -247,8 +260,8 @@ public class MyFlutterActivity extends FlutterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        FirebaseApp.initializeApp(this);
         createNotificationChannel();
-
         // Request permissions if not granted
         requestPermissionsIfNeeded();
 
@@ -260,5 +273,40 @@ public class MyFlutterActivity extends FlutterActivity {
 
         configureFlutterEngine(flutterEngine);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("sensorReadings")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            // Handle errors
+                            return;
+                        }
+                        SensorReading s = new SensorReading();
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED: // New document added
+                                    DocumentSnapshot document = dc.getDocument();
+                                    String sensor = document.getString("sensorType");
+                                    Long timestamp = document.getLong("timestamp");
+                                    Double value = document.getDouble("values");
+                                    s.addReading(sensor, timestamp, value);
+                                    break;
+                                case MODIFIED: // Document modified
+                                    System.out.println("2");
+                                    break;
+                                case REMOVED: // Document removed
+                                    System.out.println("3");
+                                    break;
+                            }
+                        }
+                    }
+                });
+
     }
 }
+
+
+
+
+

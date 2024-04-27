@@ -18,6 +18,7 @@ dependencyResolutionManagement {
   }
 }
 
+
 rootProject.name = "eldorfit"
 include(":app")
 include(":flutter_eldorfit")
