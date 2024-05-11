@@ -71,7 +71,7 @@ class _TranslationPageState extends State<TranslationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Generate Your Meal Plan'),
+        title: const Text('Translate Now'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

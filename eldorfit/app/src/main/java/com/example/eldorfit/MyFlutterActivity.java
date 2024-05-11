@@ -3,6 +3,8 @@ package com.example.eldorfit;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.os.Bundle;
+
+import io.flutter.Log;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -28,9 +30,15 @@ import android.content.Context;
 
 import android.os.Handler;
 import android.os.Looper;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import java.util.Arrays;
 
@@ -42,6 +50,8 @@ public class MyFlutterActivity extends FlutterActivity {
     private static final String NOTIFICATION_CHANNEL_ID = "notification.id";
 //    private DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
+    AppDatabase roomDatabase;
+
 
 
     @Override
@@ -49,25 +59,25 @@ public class MyFlutterActivity extends FlutterActivity {
         super.configureFlutterEngine(flutterEngine);
         // Register any plugins if needed
         GeneratedPluginRegistrant.registerWith(flutterEngine);
-        methodChannel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL_NAME);
-        methodChannel.setMethodCallHandler((call, result) -> {
+        this.methodChannel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL_NAME);
+        this.methodChannel.setMethodCallHandler((call, result) -> {
                     if (call.method.equals("sendRefillDataToJava")) {
-                        // Handle method call from Flutter
-//                        String dataToSend = "Hello from Android!";
-//                        result.success(dataToSend);
-//                        sendDataToFlutter(dataToSend);
                         String data = call.arguments.toString();
                         processRefillDataFromFlutter(data);
 
                     } 
                     else if (call.method.equals("sendAppointmentDataToJava")) {
-//                        System.out.println("Recieved appointment data");
                         String data = call.arguments.toString();
                         processAppointmentDataFromFlutter(data);
                     }
                     else if(call.method.equals("sendMedicineDataToJava")){
                         String data = call.arguments.toString();
                         processMedicineDataFromFlutter(data);
+                    }
+                    else if(call.method.equals("sendHealthDataToJava")){
+                        System.out.println("received health data noti");
+                        testFlutterCommunication();
+                        sendHealthDataToFlutter();
                     }
                     else {
                         result.notImplemented();
@@ -257,22 +267,18 @@ public class MyFlutterActivity extends FlutterActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        FirebaseApp.initializeApp(this);
-        createNotificationChannel();
-        // Request permissions if not granted
-        requestPermissionsIfNeeded();
+    public void testFlutterCommunication() {
+        Map<String, Object> testData = new HashMap<>();
+        testData.put("testKey", "testValue");
+        System.out.println("Test test test");
+        methodChannel.invokeMethod("receiveHealthDataFromJava", testData);
+    }
 
-        // Access the FlutterEngine to configure it
-        FlutterEngine flutterEngine = new FlutterEngine(this);
-        flutterEngine.getDartExecutor().executeDartEntrypoint(
-                DartExecutor.DartEntrypoint.createDefault()
-        );
-
-        configureFlutterEngine(flutterEngine);
-
+    public void sendDataToFlutter(Map<String, Object> data) {
+        System.out.println(data);
+        this.methodChannel.invokeMethod("receiveHealthDataFromJava", data);
+    }
+    public void sendHealthDataToFlutter() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("sensorReadings")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -282,15 +288,29 @@ public class MyFlutterActivity extends FlutterActivity {
                             // Handle errors
                             return;
                         }
-                        SensorReading s = new SensorReading();
+//                        SensorReading s = new SensorReading();
                         for (DocumentChange dc : snapshots.getDocumentChanges()) {
                             switch (dc.getType()) {
                                 case ADDED: // New document added
                                     DocumentSnapshot document = dc.getDocument();
+                                    Map<String, Object> data = new HashMap<>();
                                     String sensor = document.getString("sensorType");
                                     Long timestamp = document.getLong("timestamp");
                                     Double value = document.getDouble("values");
-                                    s.addReading(sensor, timestamp, value);
+                                    System.out.println(value);
+                                    SensorReadingEntity sensorReading = new SensorReadingEntity();
+                                    sensorReading.setSensor(sensor);
+                                    sensorReading.setTimestamp(timestamp);
+                                    sensorReading.setValue(value);
+
+                                    new Thread(() -> roomDatabase.sensorReadingDao().insert(sensorReading)).start();
+
+
+//                                    data.put("sensor", sensor);
+//                                    data.put("timestamp", timestamp);
+//                                    data.put("value", value);
+//                                    sendDataToFlutter(data);
+//                                    s.addReading(sensor, timestamp, value);
                                     break;
                                 case MODIFIED: // Document modified
                                     System.out.println("2");
@@ -302,7 +322,29 @@ public class MyFlutterActivity extends FlutterActivity {
                         }
                     }
                 });
+    }
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        FirebaseApp.initializeApp(this);
+
+        roomDatabase = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "sensor_readings")
+                .fallbackToDestructiveMigration()
+                .build();
+        createNotificationChannel();
+        // Request permissions if not granted
+        requestPermissionsIfNeeded();
+
+        // Access the FlutterEngine to configure it
+        FlutterEngine flutterEngine = new FlutterEngine(this);
+        flutterEngine.getDartExecutor().executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+        );
+
+        configureFlutterEngine(flutterEngine);
     }
 }
 

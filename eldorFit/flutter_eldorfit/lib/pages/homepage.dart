@@ -43,6 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pushNamed(context, '/translation');
   }
 
+  void navigateToHealthData() {
+    Navigator.pushNamed(context, '/health_data');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 context,
                 'Your Health Data',
                 'Track your health & activity data',
-                navigateToMedicineReminders,
+                navigateToHealthData,
               ),
               _buildHomeButton(
                 context,
@@ -180,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             leading: const Icon(Icons.local_pharmacy),
             title: const Text('Your Health Data'),
-            onTap: navigateToMedicineReminders,
+            onTap: navigateToHealthData,
           ),
           ListTile(
             leading: const Icon(Icons.school),

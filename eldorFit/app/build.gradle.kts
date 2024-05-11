@@ -57,6 +57,8 @@ dependencies {
     add("profileImplementation", "com.example.flutter_eldorfit:flutter_profile:1.0")
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation ("androidx.room:room-runtime:2.4.1")
+    annotationProcessor ("androidx.room:room-compiler:2.4.1")
 
 }
 
