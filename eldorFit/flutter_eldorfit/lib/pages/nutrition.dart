@@ -46,7 +46,7 @@ class NutritionPage extends StatelessWidget {
                 'Daily Calorie Intake',
                 'Calculate your daily calorie needs',
                 () {
-                  Navigator.pushNamed(context, '/health_p1');
+                  Navigator.pushNamed(context, '/calculate');
                 },
               ),
               _buildNutritionButton(
