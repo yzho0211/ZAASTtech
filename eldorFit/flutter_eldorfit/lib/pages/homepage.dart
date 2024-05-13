@@ -47,6 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pushNamed(context, '/health_data');
   }
 
+  void navigateToHeartwise() {
+    Navigator.pushNamed(context, '/heartwise');
+  }
+
+  void navigateToNutrition() {
+    Navigator.pushNamed(context, '/nutrition');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,13 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 context,
                 'Be HeartWise',
                 'Learn the latest information on heart disease',
-                navigateToHealthAwareness,
+                navigateToHeartwise,
               ),
               _buildHomeButton(
                 context,
                 'Meal Plan',
                 'Generate your meal plan for a week',
-                navigateToMealPlanner,
+                navigateToNutrition,
               ),
             ],
           ),
@@ -188,13 +196,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ListTile(
             leading: const Icon(Icons.school),
-            title: const Text('Health Awareness'),
-            onTap: navigateToHealthAwareness,
+            title: const Text('Be HeartWise'),
+            onTap: navigateToHeartwise,
           ),
           ListTile(
             leading: const Icon(Icons.restaurant_menu),
             title: const Text('Meal Planner'),
-            onTap: navigateToMealPlanner,
+            onTap: navigateToNutrition,
           ),
           ListTile(
             leading: const Icon(Icons.replay),
