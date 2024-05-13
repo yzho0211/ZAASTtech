@@ -13,6 +13,8 @@ import 'pages/reminders.dart';
 import 'pages/disclaimer.dart';
 import 'pages/translation.dart';
 import 'pages/healthData.dart';
+import 'pages/heartwise.dart';
+import 'pages/nutrition.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -39,7 +41,9 @@ void main() {
       '/reminders': (context) => ReminderPage(),
       '/disclaimer': (context) => DisclaimerPage(),
       '/translation': (context) => TranslationPage(),
-      '/health_data': (context) => DataVisualizer()
+      '/health_data': (context) => DataVisualizer(),
+      '/heartwise': (context) => HeartWisePage(),
+      '/nutrition': (context) => NutritionPage(),
     },
   ));
 }
