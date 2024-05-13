@@ -112,11 +112,11 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                       });
                     },
                     items: List.generate(
-                      51,
+                      61,
                       (index) => DropdownMenuItem(
-                        value: index + 50,
+                        value: index + 40,
                         child: Text(
-                          '${index + 50}',
+                          '${index + 40}',
                           style: TextStyle(
                             fontSize: 38,
                             color: Colors.yellow,
