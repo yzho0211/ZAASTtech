@@ -45,7 +45,7 @@ void main() {
       '/health_data': (context) => DataVisualizer(),
       '/heartwise': (context) => HeartWisePage(),
       '/nutrition': (context) => NutritionPage(),
-      '/calculate': (context) => CalculatorPage(),
+      '/calculate': (context) => CalorieCalculatorPage(),
     },
   ));
 }

@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 
-class CalculatorPage extends StatefulWidget {
+class CalorieCalculatorPage extends StatefulWidget {
   @override
-  _CalculatorPageState createState() => _CalorieCalculatorPageState();
+  _CalorieCalculatorPageState createState() => _CalorieCalculatorPageState();
 }
 
-class _CalculatorPageState extends State<CalculatorPage> {
+class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
   final _formKey = GlobalKey<FormState>();
   String _gender = 'Male';
-  int? _age;
+  int _age = 60;
   double? _height;
   double? _weight;
   double? _calories;
 
   double calculateCalories() {
     if (_gender == 'Male') {
-      return 88.362 +
-          (13.397 * _weight!) +
-          (4.799 * _height!) -
-          (5.677 * _age!);
+      return 88.362 + (13.397 * _weight!) + (4.799 * _height!) - (5.677 * _age);
     } else {
-      return 447.593 + (9.247 * _weight!) + (3.098 * _height!) - (4.33 * _age!);
+      return 447.593 + (9.247 * _weight!) + (3.098 * _height!) - (4.33 * _age);
     }
   }
 
@@ -36,7 +33,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(30),
           child: Form(
             key: _formKey,
             child: Column(
@@ -44,43 +41,92 @@ class _CalculatorPageState extends State<CalculatorPage> {
               children: [
                 Text(
                   'Calculate Daily Caloric Intake',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20),
-                DropdownButtonFormField<String>(
-                  value: _gender,
-                  decoration: InputDecoration(
-                    labelText: 'Gender',
-                    border: OutlineInputBorder(),
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      _gender = value!;
-                    });
-                  },
-                  items: ['Male', 'Female']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
-                SizedBox(height: 20),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Age (years)',
-                    border: OutlineInputBorder(),
+                SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color:
+                            _gender == 'Male' ? Color(0xFF19297C) : Colors.grey,
+                      ),
+                      child: OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            _gender = 'Male';
+                          });
+                        },
+                        child: Text(
+                          'Male',
+                          style: TextStyle(
+                            fontSize: 38,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: _gender == 'Female'
+                            ? Color(0xFF19297C)
+                            : Colors.grey,
+                      ),
+                      child: OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            _gender = 'Female';
+                          });
+                        },
+                        child: Text(
+                          'Female',
+                          style: TextStyle(
+                            fontSize: 38,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 50),
+                Center(
+                  child: DropdownButton<int>(
+                    value: _age,
+                    onChanged: (value) {
+                      setState(() {
+                        _age = value!;
+                      });
+                    },
+                    items: List.generate(
+                      51,
+                      (index) => DropdownMenuItem(
+                        value: index + 50,
+                        child: Text(
+                          '${index + 50}',
+                          style: TextStyle(
+                            fontSize: 38,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty)
-                      return 'Please enter your age';
-                    return null;
-                  },
-                  onSaved: (value) => _age = int.parse(value!),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 50),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Height (cm)',
@@ -94,7 +140,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   },
                   onSaved: (value) => _height = double.parse(value!),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Weight (kg)',
@@ -108,7 +154,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   },
                   onSaved: (value) => _weight = double.parse(value!),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 50),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -134,13 +180,19 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       );
                     }
                   },
-                  child: Text('Calculate', style: TextStyle(fontSize: 22)),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                  child: Text(
+                    'Calculate',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.yellow,
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 15),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF19297C),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 20),
                   ),
                 ),
               ],
