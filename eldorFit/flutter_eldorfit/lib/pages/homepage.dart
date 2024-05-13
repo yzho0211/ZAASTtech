@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('Welcome page'),
+        title: const Text('Eldorfit Home'),
         leading: IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {
@@ -74,20 +74,29 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 32),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  'Welcome to\nEldorFit',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF19297C),
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/EldorFit.png'),
+                      radius: 30,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Welcome to\nEldorFit',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF19297C),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const Text(
-                'Your Guide to Better Health and Happiness',
+                'EldorFit is a Guide for the Elderly to Better Heart Health and Happiness',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
