@@ -54,7 +54,7 @@ class NutritionPage extends StatelessWidget {
                 'View Statistics',
                 'View dietary statistics and guidelines',
                 () {
-                  Navigator.pushNamed(context, '/health_p1');
+                  Navigator.pushNamed(context, '/diet_trend');
                 },
               ),
             ],

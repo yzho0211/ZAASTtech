@@ -56,6 +56,10 @@ flutter:
     - lib/visualisations/women5070.png
     - assets/images/background.png
     - assets/images/EldorFit.png
+    - lib/visualisations/Fruit.png
+    - lib/visualisations/veg.png
+    - lib/visualisations/fandv.png
+    - lib/visualisations/drinks.png
 
   # To add Flutter specific assets to your application, add an assets section,
   # like this:

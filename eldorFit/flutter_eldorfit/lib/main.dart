@@ -16,6 +16,7 @@ import 'pages/healthData.dart';
 import 'pages/heartwise.dart';
 import 'pages/nutrition.dart';
 import 'pages/calculate.dart';
+import 'pages/diet_trends.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -46,6 +47,7 @@ void main() {
       '/heartwise': (context) => HeartWisePage(),
       '/nutrition': (context) => NutritionPage(),
       '/calculate': (context) => CalculatorPage(),
+      '/diet_trend': (context) => Health_trendPage()
     },
   ));
 }
