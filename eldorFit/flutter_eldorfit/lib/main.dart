@@ -17,6 +17,7 @@ import 'pages/heartwise.dart';
 import 'pages/nutrition.dart';
 import 'pages/calculate.dart';
 import 'pages/diet_trends.dart';
+import 'pages/wellbeing.dart'; // Added import for the Wellbeing Guide page
 
 void main() {
   runApp(MaterialApp(
@@ -46,8 +47,14 @@ void main() {
       '/health_data': (context) => DataVisualizer(),
       '/heartwise': (context) => HeartWisePage(),
       '/nutrition': (context) => NutritionPage(),
+<<<<<<< HEAD
       '/calculate': (context) => CalorieCalculatorPage(),
       '/diet_trend': (context) => Health_trendPage()
+=======
+      '/calculate': (context) => CalculatorPage(),
+      '/diet_trend': (context) => Health_trendPage(),
+      '/wellbeing': (context) => WellbeingPage(), // Added route for Wellbeing Guide page
+>>>>>>> 37ca377 (added wellbeing guide)
     },
   ));
 }

@@ -27,6 +27,8 @@ dependencies:
   intl: ^0.17.0
   charts_flutter: ^0.12.0
   floor: ^1.4.2
+  carousel_slider: ^4.0.0
+  google_fonts: ^2.0.0
   # firebase_core: ^2.3.0
   # firebase_database: ^9.0.15
 
@@ -60,6 +62,12 @@ flutter:
     - lib/visualisations/veg.png
     - lib/visualisations/fandv.png
     - lib/visualisations/drinks.png
+    - assets/images/wbg1.png
+    - assets/images/wbg2.png
+    - assets/images/wbg3.png
+    - assets/images/askforhelp.jpg
+    - assets/images/page2.jpeg
+    - assets/images/page2_2.jpg
 
   # To add Flutter specific assets to your application, add an assets section,
   # like this:
