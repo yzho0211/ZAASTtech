@@ -18,115 +18,148 @@ class _MealPlanPage1State extends State<MealPlanPage1> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Generate Your Meal Plan'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Choose Your Diet Type',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            DropdownButton<String>(
-              value: selectedDiet, // Updated to use selectedDiet
-              onChanged: (String? newValue) {
-                // Handle type of diet selection
-                setState(() {
-                  selectedDiet = newValue; // Update selectedDiet
-                });
-              },
-              items: <String>[
-                'Gluten Free',
-                'Vegetarian',
-                'Lacto-Vegetarian',
-                'Ovo-Vegetarian',
-                'Vegan',
-                'Pescetarian',
-                'Paleo',
-                'Primal',
-                'Low FODMAP',
-                'Whole30',
-                // Add other diet options here
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: TextStyle(fontSize: 24),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 32),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Choose Your Diet Type',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF19297C),
                   ),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Allergies (Optional)',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              child: TextFormField(
-                style: TextStyle(fontSize: 28), // Increased font size
+                ),
+              ),
+              Center(
+                child: DropdownButton<String>(
+                  value: selectedDiet,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedDiet = newValue;
+                    });
+                  },
+                  items: <String>[
+                    'Gluten Free',
+                    'Vegetarian',
+                    'Lacto-Vegetarian',
+                    'Ovo-Vegetarian',
+                    'Vegan',
+                    'Pescetarian',
+                    'Paleo',
+                    'Primal',
+                    'Low FODMAP',
+                    'Whole30',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style:
+                            TextStyle(fontSize: 24, color: Color(0xFF19297C)),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Allergies (Optional)',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF19297C),
+                  ),
+                ),
+              ),
+              TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Enter your allergies',
+                  hintStyle: TextStyle(color: Color(0xFF19297C)),
                 ),
+                style: TextStyle(fontSize: 28, color: Color(0xFF19297C)),
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  excludedFoods = value; // Update excluded foods
+                  excludedFoods = value;
                 },
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Target Calories',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              child: TextFormField(
-                style: TextStyle(fontSize: 28), // Increased font size
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Target Calories',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF19297C),
+                  ),
+                ),
+              ),
+              TextFormField(
                 initialValue: '2000',
                 decoration: InputDecoration(
                   hintText: 'Enter your target calories',
+                  hintStyle: TextStyle(color: Color(0xFF19297C)),
                 ),
                 keyboardType: TextInputType.number,
+                style: TextStyle(fontSize: 28, color: Color(0xFF19297C)),
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  targetCalories = value; // Update target calories
+                  targetCalories = value;
                 },
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (selectedDiet == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Please choose your diet type'),
-                    ),
-                  );
-                } else {
-                  // Navigate to meal plan page 2 with parameters
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MealPlanPage2(
-                        targetCalories: targetCalories ?? '2000',
-                        diet: selectedDiet!,
-                        // exclude: excludedFoods ?? '',
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (selectedDiet == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Please choose your diet type'),
                       ),
-                    ),
-                  );
-                }
-              },
-              child: const Text(
-                'Generate Meal Plan',
-                style: TextStyle(fontSize: 28),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MealPlanPage2(
+                          targetCalories: targetCalories ?? '2000',
+                          diet: selectedDiet!,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Generate Meal Plan',
+                  style: TextStyle(fontSize: 28, color: Color(0xFFFEE440)),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 25, 42, 124),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  minimumSize: Size(double.infinity, 50),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
