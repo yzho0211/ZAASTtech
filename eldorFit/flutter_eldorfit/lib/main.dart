@@ -15,6 +15,7 @@ import 'pages/translation.dart';
 import 'pages/healthData.dart';
 import 'pages/heartwise.dart';
 import 'pages/nutrition.dart';
+import 'pages/calculate.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -44,6 +45,7 @@ void main() {
       '/health_data': (context) => DataVisualizer(),
       '/heartwise': (context) => HeartWisePage(),
       '/nutrition': (context) => NutritionPage(),
+      '/calculate': (context) => CalculatorPage(),
     },
   ));
 }
