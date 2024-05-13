@@ -47,14 +47,9 @@ void main() {
       '/health_data': (context) => DataVisualizer(),
       '/heartwise': (context) => HeartWisePage(),
       '/nutrition': (context) => NutritionPage(),
-<<<<<<< HEAD
       '/calculate': (context) => CalorieCalculatorPage(),
-      '/diet_trend': (context) => Health_trendPage()
-=======
-      '/calculate': (context) => CalculatorPage(),
       '/diet_trend': (context) => Health_trendPage(),
-      '/wellbeing': (context) => WellbeingPage(), // Added route for Wellbeing Guide page
->>>>>>> 37ca377 (added wellbeing guide)
+      '/wellbeing': (context) =>WellbeingPage(), // Added route for Wellbeing Guide page
     },
   ));
 }
