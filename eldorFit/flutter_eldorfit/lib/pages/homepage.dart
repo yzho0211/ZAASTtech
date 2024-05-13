@@ -84,10 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'Welcome to\nEldorFit',
+                      'Welcome to EldorFit',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF19297C),
                       ),
