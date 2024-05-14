@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/arxhit/Library/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/arxhit/Assignments/IE/main_project/ZAASTtech/eldorfit/flutter_eldorfit"
+export "FLUTTER_APPLICATION_PATH=/Users/arxhit/Assignments/IE/main_project/ZAASTtech/eldorFit/flutter_eldorfit"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"

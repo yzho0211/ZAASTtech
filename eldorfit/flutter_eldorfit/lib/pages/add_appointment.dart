@@ -80,6 +80,18 @@ class _AddAppointmentState extends State<AddAppointment> {
                     filled: true,
                     fillColor: Colors.white,
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a name';
+                    }
+
+                    final nameRegExp = RegExp(r'^[a-zA-Z ]+$');
+                    if (!nameRegExp.hasMatch(value)) {
+                      return 'Name must contain only letters and spaces';
+                    }
+
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
@@ -90,6 +102,18 @@ class _AddAppointmentState extends State<AddAppointment> {
                     filled: true,
                     fillColor: Colors.white,
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a name';
+                    }
+
+                    final nameRegExp = RegExp(r'^[a-zA-Z ]+$');
+                    if (!nameRegExp.hasMatch(value)) {
+                      return 'Name must contain only letters and spaces';
+                    }
+
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.0),
                 Row(

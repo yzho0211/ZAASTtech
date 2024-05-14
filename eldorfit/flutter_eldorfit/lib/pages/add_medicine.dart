@@ -99,14 +99,25 @@ class _AddMedicineState extends State<AddMedicine> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  controller: _amountController,
-                  decoration: const InputDecoration(
-                    labelText: 'Number of tablets per dose',
-                    border: OutlineInputBorder(),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                ),
+                    controller: _amountController,
+                    decoration: const InputDecoration(
+                      labelText: 'Number of tablets per dose',
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the number of tablets per dose';
+                      }
+                      if (value.isNotEmpty) {
+                        if (value as int > 5) {
+                          return 'Please enter a valid number';
+                        }
+                      }
+                      return null;
+                    }),
                 SizedBox(height: 20.0),
                 Text(
                   "Select time of the day for medicine doses",
