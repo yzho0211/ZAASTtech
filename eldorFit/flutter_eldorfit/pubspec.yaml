@@ -28,7 +28,7 @@ dependencies:
   charts_flutter: ^0.12.0
   floor: ^1.4.2
   carousel_slider: ^4.0.0
-  google_fonts: ^2.0.0
+  google_fonts: ^6.2.1
   # firebase_core: ^2.3.0
   # firebase_database: ^9.0.15
 
@@ -108,6 +108,14 @@ flutter:
   # maintain consistency when adding or modifying assets and plugins.
   # They also do not have any bearing on your native host application's
   # identifiers, which may be completely independent or the same as these.
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: assets/Noto_sans/NotoSans-VariableFont_wdth,wght.ttf
+          weight: 400
+        - asset: assets/Noto_sans/NotoSans-Italic-VariableFont_wdth,wght.ttf
+          style: italic
+
   module:
     androidX: true
     androidPackage: com.example.flutter_eldorfit

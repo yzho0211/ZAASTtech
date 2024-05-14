@@ -73,58 +73,94 @@ class _TranslationPageState extends State<TranslationPage> {
       appBar: AppBar(
         title: const Text('Translate Now'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Choose Your Target Language',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            DropdownButton<String>(
-              value: selectedLanguage,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedLanguage = newValue!;
-                });
-              },
-              items: targetLanguageCodes.entries
-                  .map<DropdownMenuItem<String>>((entry) {
-                return DropdownMenuItem<String>(
-                  value: entry.value,
-                  child: Text(entry.key),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _textEditingController,
-              decoration: const InputDecoration(
-                hintText: 'Enter text here...',
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Eldorfit Accessibility Feature',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _isLoading || selectedLanguage == null
-                  ? null
-                  : () {
-                      translateText(
-                          _textEditingController.text, selectedLanguage!);
-                    },
-              child: _isLoading
-                  ? CircularProgressIndicator()
-                  : const Text('Translate'),
-            ),
-            SizedBox(height: 20),
-            Text(
-              _translation,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 24),
-            ),
-          ],
+              const SizedBox(height: 5),
+              const Text(
+                'Translate text to your native language!',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Choose Your Target Language',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              DropdownButton<String>(
+                value: selectedLanguage,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedLanguage = newValue!;
+                  });
+                },
+                items: targetLanguageCodes.entries
+                    .map<DropdownMenuItem<String>>((entry) {
+                  return DropdownMenuItem<String>(
+                    value: entry.value,
+                    child: Text(entry.key),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                controller: _textEditingController,
+                decoration: const InputDecoration(
+                  hintText: 'Enter text here...',
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _isLoading || selectedLanguage == null
+                    ? null
+                    : () {
+                        translateText(
+                            _textEditingController.text, selectedLanguage!);
+                      },
+                child: _isLoading
+                    ? CircularProgressIndicator()
+                    : const Text('Translate'),
+              ),
+              SizedBox(height: 20),
+              Text(
+                _translation,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'NotoSans', // Use the Noto Sans font family
+                  fontSize: 24,
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: 0.15,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+
+
