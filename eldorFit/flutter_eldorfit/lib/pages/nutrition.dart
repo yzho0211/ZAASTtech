@@ -82,21 +82,34 @@ class NutritionPage extends StatelessWidget {
               color: Color(0xFF19297C),
             ),
           ),
-          ElevatedButton(
-            onPressed: onPressed,
-            child: Text(
-              buttonText,
-              style: const TextStyle(
-                fontSize: 28,
-                color: Color(0xFFFEE440),
-              ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
             ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 25, 42, 124),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+            child: ElevatedButton(
+              onPressed: onPressed,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    buttonText,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward, color: Colors.deepPurple),
+                ],
               ),
-              minimumSize: Size(double.infinity, 50),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
           ),
         ],

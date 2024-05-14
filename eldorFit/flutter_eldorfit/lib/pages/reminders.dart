@@ -56,18 +56,21 @@ class _ReminderPageState extends State<ReminderPage> {
                 context,
                 'Your Medicines',
                 'Set a reminder to take your medicines',
+                Icons.medication, // Added medication icon
                 navigateToMedicineReminders,
               ),
               _buildReminderButton(
                 context,
                 'Your Appointments',
-                'Set a reminder for your doctor’s appointments',
+                "Set a reminder for your doctor's appointments",
+                Icons.event, // Added event icon
                 navigateToAppointmentReminders,
               ),
               _buildReminderButton(
                 context,
                 'Refill Reminders',
                 'Set a reminder to refill your prescription',
+                Icons.receipt, // Added receipt icon
                 navigateToRefillReminders,
               ),
             ],
@@ -81,12 +84,41 @@ class _ReminderPageState extends State<ReminderPage> {
     BuildContext context,
     String buttonText,
     String buttonTitle,
+    IconData icon,
     VoidCallback onPressed,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
       child: Column(
         children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+            ),
+            child: ElevatedButton.icon(
+              onPressed: onPressed,
+              icon: Icon(icon, color: Colors.deepPurple),
+              label: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                child: Text(
+                  buttonText,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
           Text(
             buttonTitle,
             textAlign: TextAlign.center,
@@ -95,25 +127,9 @@ class _ReminderPageState extends State<ReminderPage> {
               color: Color(0xFF19297C),
             ),
           ),
-          ElevatedButton(
-            onPressed: onPressed,
-            child: Text(
-              buttonText,
-              style: const TextStyle(
-                fontSize: 28,
-                color: Color(0xFFFEE440),
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 25, 42, 124),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              minimumSize: Size(double.infinity, 50),
-            ),
-          ),
         ],
       ),
     );
   }
 }
+
