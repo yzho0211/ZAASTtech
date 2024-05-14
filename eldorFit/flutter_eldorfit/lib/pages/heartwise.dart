@@ -28,26 +28,41 @@ class HeartWisePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF19297C),
+                    color: Color.fromARGB(255, 253, 253, 253),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
-              _buildFeatureButton(
+              _buildFeatureTile(
                 context,
                 'View Statistics',
                 'Australian Dietary Guidelines for the Elderly',
+                Icons.analytics,
                 () {
                   Navigator.pushNamed(context, '/health_p1');
                 },
               ),
-              _buildFeatureButton(
+              _buildFeatureTile(
                 context,
                 'Take the Quiz',
                 'Check your understanding of dietary guidelines',
+                Icons.quiz,
                 () {
                   Navigator.pushNamed(context, '/quiz');
                 },
+              ),
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Explore vital heart health statistics for seniors and test your knowledge with our interactive quiz.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
               ),
             ],
           ),
@@ -56,43 +71,49 @@ class HeartWisePage extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureButton(
+  Widget _buildFeatureTile(
     BuildContext context,
     String buttonText,
     String buttonTitle,
+    IconData icon,
     VoidCallback onPressed,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-      child: Column(
-        children: [
-          Text(
-            buttonTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF19297C),
-            ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(10),
           ),
-          ElevatedButton(
-            onPressed: onPressed,
-            child: Text(
+          child: ListTile(
+            leading: Icon(
+              icon,
+              color: Colors.deepPurple,
+            ),
+            title: Text(
               buttonText,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 28,
-                color: Color(0xFFFEE440),
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 25, 42, 124),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+            subtitle: Text(
+              buttonTitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.deepPurple,
               ),
-              minimumSize: Size(double.infinity, 50),
             ),
+            onTap: onPressed,
           ),
-        ],
+        ),
       ),
     );
   }
 }
+

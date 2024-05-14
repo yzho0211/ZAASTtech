@@ -76,56 +76,65 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 32),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Row(
+                child: Column(
                   children: [
                     CircleAvatar(
                       backgroundImage: AssetImage('assets/images/EldorFit.png'),
-                      radius: 30,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Welcome to EldorFit',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF19297C),
+                      radius: 50, // Adjust the radius to fit better
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const Text(
-                'EldorFit is a Guide for the Elderly to Better Heart Health and Happiness',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF19297C),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Welcome to\nEldorFit',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 252, 252, 252),
+                          ),
+                         ),
+                          ],
+                          ),
+                          ),
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "EldorFit welcomes Seniors to a journey of vitality, guiding them towards optimal heart health and well-being as they embrace life's golden years.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
               _buildHomeButton(
                 context,
+                Icons.alarm,
                 'Your Reminders',
-                'Set reminders for medicines, refills and appointments',
+                'Click here to set reminders for medicines, refills and appointments',
                 navigateToReminders,
               ),
               _buildHomeButton(
                 context,
+                Icons.favorite,
                 'Be HeartWise',
-                'Learn the latest information on heart disease',
+                'Learn the latest information on heart health',
                 navigateToHeartwise,
               ),
               _buildHomeButton(
                 context,
-                'Meal Plan',
-                'Generate your meal plan for a week',
+                Icons.food_bank,
+                'Your Nutrition',
+                'Click here to learn more about your Nutrition and generate a meal plan',
                 navigateToNutrition,
               ),
               _buildHomeButton(
                 context,
+                Icons.info,
                 'Wellbeing Guide', // New button for Wellbeing Guide
-                'Explore resources for mental health and well-being', // New button description
+                'Explore resources for your Mental Health and well-being', // New button description
                 navigateToWellbeingGuide, // New button action
               ),
             ],
@@ -138,40 +147,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildHomeButton(
     BuildContext context,
+    IconData icon,
     String buttonText,
     String buttonTitle,
     VoidCallback onPressed,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-      child: Column(
-        children: [
-          Text(
-            buttonTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF19297C),
+      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Container(
+          color: Colors.white,
+          child: ListTile(
+            leading: Icon(
+              icon,
+              color: Colors.deepPurple,
             ),
-          ),
-          ElevatedButton(
-            onPressed: onPressed,
-            child: Text(
+            title: Text(
               buttonText,
               style: const TextStyle(
                 fontSize: 28,
-                color: Color(0xFFFEE440),
+                color: Colors.deepPurple,
               ),
             ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 25, 42, 124),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+            subtitle: Text(
+              buttonTitle,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold,
               ),
-              minimumSize: Size(double.infinity, 50),
             ),
+            onTap: onPressed,
           ),
-        ],
+        ),
       ),
     );
   }
@@ -205,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ListTile(
             leading: const Icon(Icons.restaurant_menu),
-            title: const Text('Meal Planner'),
+            title: const Text('Your Nutrition'),
             onTap: navigateToNutrition,
           ),
           ListTile(
@@ -228,3 +237,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+

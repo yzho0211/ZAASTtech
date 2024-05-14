@@ -43,12 +43,19 @@ class WellbeingPage extends StatelessWidget {
                       enlargeCenterPage: true,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'Your mental health is just as important as your physical health. Here, you\'ll find tips and resources to help you stay mentally and emotionally well.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                  Container(
+                    margin: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Your mental health is just as important as your physical health. Here, you\'ll find tips and resources to help you stay mentally and emotionally well.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18, color: Colors.deepPurple,fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ],
@@ -60,10 +67,11 @@ class WellbeingPage extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 255, 255, 255)),
                 ),
               ),
-              _buildHomeButton(
+              _buildHomeTile(
                 context,
                 'Emergency & Help Resources',
                 'Resources for mental health support',
+                Icons.local_hospital,
                 () {
                   Navigator.push(
                     context,
@@ -72,10 +80,11 @@ class WellbeingPage extends StatelessWidget {
                 },
               ),
               SizedBox(height: 20),
-              _buildHomeButton(
+              _buildHomeTile(
                 context,
                 'Mindfulness & Stress Management',
                 'Tips for managing stress & being mindful',
+                Icons.self_improvement,
                 () {
                   Navigator.push(
                     context,
@@ -90,42 +99,47 @@ class WellbeingPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHomeButton(
+  Widget _buildHomeTile(
     BuildContext context,
     String buttonText,
     String buttonTitle,
+    IconData icon,
     VoidCallback onPressed,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 4.0),
-      child: Column(
-        children: [
-          Text(
-            buttonTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF19297C),
-            ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(10),
           ),
-          ElevatedButton(
-            onPressed: onPressed,
-            child: Text(
+          child: ListTile(
+            leading: Icon(
+              icon,
+              color: Colors.deepPurple,
+            ),
+            title: Text(
               buttonText,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              buttonTitle,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.yellow,
+                color: Colors.deepPurple,
               ),
             ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF19297C),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              minimumSize: Size(double.infinity, 50),
-            ),
+            onTap: onPressed,
           ),
-        ],
+        ),
       ),
     );
   }
