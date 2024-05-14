@@ -35,10 +35,10 @@ class NutritionPage extends StatelessWidget {
               const SizedBox(height: 24),
               _buildNutritionButton(
                 context,
-                'Meal Planner',
-                'Plan your meals with our easy to use meal planner',
+                'View Statistics',
+                'View dietary statistics and guidelines',
                 () {
-                  Navigator.pushNamed(context, '/mealpl_p1');
+                  Navigator.pushNamed(context, '/diet_trend');
                 },
               ),
               _buildNutritionButton(
@@ -51,10 +51,10 @@ class NutritionPage extends StatelessWidget {
               ),
               _buildNutritionButton(
                 context,
-                'View Statistics',
-                'View dietary statistics and guidelines',
+                'Meal Planner',
+                'Plan your meals with our easy to use meal planner',
                 () {
-                  Navigator.pushNamed(context, '/diet_trend');
+                  Navigator.pushNamed(context, '/mealpl_p1');
                 },
               ),
             ],
