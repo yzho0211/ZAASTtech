@@ -15,7 +15,8 @@ class _HealthTrendPageState extends State<HealthTrendPage> {
       appBar: AppBar(
         title: Text('Australian Dietary Trends'),
       ),
-      body: PageView(
+      body: SingleChildScrollView(
+          child: PageView(
         controller: _pageController,
         onPageChanged: (int page) {
           setState(() {
@@ -54,7 +55,7 @@ class _HealthTrendPageState extends State<HealthTrendPage> {
             ],
           ),
         ],
-      ),
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (Navigator.canPop(context)) {
