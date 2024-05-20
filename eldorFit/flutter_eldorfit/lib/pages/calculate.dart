@@ -15,9 +15,17 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
 
   double calculateCalories() {
     if (_gender == 'Male') {
-      return 88.362 + (13.397 * _weight!) + (4.799 * _height!) - (5.677 * _age);
+      return 88.362 +
+          (13.397 * _weight!) +
+          (4.799 * _height!) -
+          (5.677 * _age) +
+          250;
     } else {
-      return 447.593 + (9.247 * _weight!) + (3.098 * _height!) - (4.33 * _age);
+      return 447.593 +
+          (9.247 * _weight!) +
+          (3.098 * _height!) -
+          (4.33 * _age) +
+          250;
     }
   }
 
@@ -134,8 +142,15 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                   ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Please enter your height';
+                    }
+                    final num = int.tryParse(value);
+                    if (value.isNotEmpty) {
+                      if (num == null || num <= 10 || num > 300) {
+                        return 'Please enter a valid number';
+                      }
+                    }
                     return null;
                   },
                   onSaved: (value) => _height = double.parse(value!),
@@ -148,8 +163,15 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                   ),
                   keyboardType: TextInputType.number,
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Please enter your weight';
+                    }
+                    final num = int.tryParse(value);
+                    if (value.isNotEmpty) {
+                      if (num == null || num <= 4 || num > 400) {
+                        return 'Please enter a valid number';
+                      }
+                    }
                     return null;
                   },
                   onSaved: (value) => _weight = double.parse(value!),
