@@ -1,56 +1,61 @@
 import 'package:flutter/material.dart';
-import 'quiz.dart'; // Ensure this import matches your project structure
+import 'quiz.dart';
 
-class HealthPage extends StatelessWidget {
+class HealthPage extends StatefulWidget {
+  @override
+  _HealthPageState createState() => _HealthPageState();
+}
+
+class _HealthPageState extends State<HealthPage> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Australian Dietary Guidelines'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.of(context).pop();
-            } else {
-              // This part is reached only if HealthPage is the first route
-              // which normally shouldn't happen in your described app structure
-              // Consider logging this situation or ensuring that your app's navigation flow is as expected
-            }
-          },
-        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text('Men Aged 51-70',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Image.asset('lib/visualisations/men5070.png'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      'Our data reveals that Aussie men in the 51-70 bracket are coming close but not quite meeting their daily greens, with 94.5% averaging 3 servings of vegetables against a recommended 5.5. Fruit intake is trailing further behind, with only 67.1% of the ideal 2 servings being enjoyed. Grains are a success story at 75.5%, overshooting the target slightly, suggesting a good intake of cereal foods. When it comes to protein, there\'s a modest excess with an average intake that\'s 70.5% above recommendations, while dairy is being consumed enthusiastically at 94.6%, indicating a strong preference for milk, yoghurt, cheese, and alternatives.',
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                  Text('Women Aged 51-70',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Image.asset('lib/visualisations/women5070.png'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      'Australian women in the 51-70 age group are making nutritious choices but there\'s room for improvement to fully meet the Australian Dietary Guidelines. Vegetables and legume/bean consumption is promising at 92.5%, just shy of the ideal 5 servings per day. Fruit consumption, however, is at 72.8% of the 2 recommended servings. Grain foods are also below the target, with only 61.1% of the guideline being met. Protein sources like lean meats and alternatives are being consumed at 72.3% of the recommendations. Dairy products are a standout, with a near-perfect score at 99.9% of the dietary target. Overall, while dairy intake is exemplary, other areas like fruit, grains, and protein sources could use a boost to achieve a balanced diet.',
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                ],
-              ),
+      body: Column(
+        // Use a Column to layout the PageView and the button
+        children: <Widget>[
+          Expanded(
+            // Let the PageView take up available space
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (int page) {
+                setState(() => _currentPage = page);
+              },
+              children: <Widget>[
+                _buildTrendSection(
+                  'Men Aged 51-70',
+                  'lib/visualisations/men5070.png',
+                  [
+                    'Almost meeting daily greens intake, but not quite (3 servings vs. 5.5 recommended).',
+                    'Fruit intake is further behind (67.1% of the ideal 2 servings).',
+                    'Grains are a success story (75.5%, slightly above target).',
+                    'Modest excess in protein intake (70.5% above recommendations).',
+                    'Dairy is being consumed enthusiastically (94.6%).',
+                  ],
+                ),
+                _buildTrendSection(
+                  'Women Aged 51-70',
+                  'lib/visualisations/women5070.png',
+                  [
+                    'Good vegetable and legume/bean consumption (92.5%, just shy of 5 servings).',
+                    'Fruit consumption is below target (72.8% of the 2 recommended servings).',
+                    'Grain foods are also below target (61.1%).',
+                    'Protein intake is at 72.3% of recommendations.',
+                    'Dairy intake is exemplary (99.9% of the dietary target).',
+                  ],
+                ),
+              ],
             ),
-            ElevatedButton(
+          ),
+          Padding(
+            // Add padding to the button
+            padding: const EdgeInsets.all(16.0), // Adjust padding as needed
+            child: ElevatedButton(
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => QuizPage()),
@@ -60,8 +65,17 @@ class HealthPage extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentPage,
+        onTap: (int page) => _pageController.animateToPage(page,
+            duration: Duration(milliseconds: 500), curve: Curves.ease),
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.male), label: 'Men'),
+          BottomNavigationBarItem(icon: Icon(Icons.female), label: 'Women'),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -77,6 +91,45 @@ class HealthPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildTrendSection(
+      String title, String imagePath, List<String> bulletPoints) {
+    return Container(
+      margin: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8),
+          Image.asset(imagePath),
+          SizedBox(height: 16),
+          for (String point in bulletPoints) // Bullet points
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.circle, size: 8.0),
+                  SizedBox(width: 8.0),
+                  Expanded(child: Text(point, style: TextStyle(fontSize: 16))),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
 }
-
-

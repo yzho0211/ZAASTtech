@@ -48,8 +48,9 @@ void main() {
       '/heartwise': (context) => HeartWisePage(),
       '/nutrition': (context) => NutritionPage(),
       '/calculate': (context) => CalorieCalculatorPage(),
-      '/diet_trend': (context) => Health_trendPage(),
-      '/wellbeing': (context) =>WellbeingPage(), // Added route for Wellbeing Guide page
+      '/diet_trend': (context) => HealthTrendPage(),
+      '/wellbeing': (context) =>
+          WellbeingPage(), // Added route for Wellbeing Guide page
     },
   ));
 }
