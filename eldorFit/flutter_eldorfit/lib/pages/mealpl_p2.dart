@@ -79,6 +79,18 @@ class _MealPlanPage2State extends State<MealPlanPage2> {
                     return _buildDayCard(dayKey, dayPlan);
                   },
                 ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (Navigator.canPop(context)) {
+            Navigator.of(context).pop();
+          } else {
+            // This part is reached only if HealthPage is the first route
+            // which normally shouldn't happen in your described app structure
+            // Consider logging this situation or ensuring that your app's navigation flow is as expected
+          }
+        },
+        child: Icon(Icons.home),
+      ),
     );
   }
 

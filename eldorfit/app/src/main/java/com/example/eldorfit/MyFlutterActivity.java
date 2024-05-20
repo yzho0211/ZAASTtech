@@ -171,8 +171,8 @@ public class MyFlutterActivity extends FlutterActivity {
             public void run() {
                 // Build the notification
                 Notification notification = new Notification.Builder(context, NOTIFICATION_CHANNEL_ID)
-                        .setContentTitle(medicine.getName())
-                        .setContentText(medicine.getInstructions())
+                        .setContentTitle("Your medication reminder for " + medicine.getName())
+                        .setContentText( "Tap for more information")//medicine.getInstructions())
                         .setSmallIcon(R.drawable.notification_icon)
                         .build();
 
@@ -194,8 +194,8 @@ public class MyFlutterActivity extends FlutterActivity {
             public void run() {
                 // Build the notification
                 Notification notification = new Notification.Builder(context, NOTIFICATION_CHANNEL_ID)
-                        .setContentTitle(appointment.getName())
-                        .setContentText(appointment.getDate())
+                        .setContentTitle("You have an upcoming appointment at " + appointment.getName())
+                        .setContentText("With Dr. " + appointment.getDoctor())
                         .setSmallIcon(R.drawable.notification_icon)
                         .build();
 
@@ -217,8 +217,8 @@ public class MyFlutterActivity extends FlutterActivity {
             public void run() {
                 // Build the notification
                 Notification notification = new Notification.Builder(context, NOTIFICATION_CHANNEL_ID)
-                        .setContentTitle(reminder.getName())
-                        .setContentText(reminder.getAmount())
+                        .setContentTitle("Your medication " + reminder.getName() + "might require refill")
+//                        .setContentText(reminder.getAmount())
                         .setSmallIcon(R.drawable.notification_icon)
                         .build();
 
