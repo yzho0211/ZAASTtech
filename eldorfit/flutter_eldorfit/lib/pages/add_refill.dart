@@ -69,27 +69,35 @@ class _AddRefillState extends State<AddRefill> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  controller: _amountController,
-                  decoration: const InputDecoration(
-                    labelText:
-                        'Prescription Duration (Number of days is the prescription expected to last)',
-                    border: OutlineInputBorder(),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-
-                // ListTile(
-                //   title: const Text('Choose Reminder Date'),
-                //   subtitle: Text(
-                //     _selectedDate == null ? 'No date chosen!' : _selectedDate.toString(),
-                //   ),
-                //   onTap: () => _selectDate(context),
-                // ),
+                    controller: _amountController,
+                    decoration: const InputDecoration(
+                      labelText:
+                          'Prescription Duration (Number of days the prescription expected to last)',
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the number of days the prescription expected to last';
+                      }
+                      final num = int.tryParse(value);
+                      if (value.isNotEmpty) {
+                        if (num == null || num <= 0 || num > 200) {
+                          return 'Please enter a valid number';
+                        }
+                      }
+                      return null;
+                    }),
                 SizedBox(height: 20.0),
                 ElevatedButton(
-                  onPressed: _addRefillReminder,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      _addRefillReminder();
+                    }
+                  },
                   child: const Text('Remind Me'),
                 ),
               ],

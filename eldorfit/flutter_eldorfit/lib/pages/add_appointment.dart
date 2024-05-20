@@ -179,7 +179,12 @@ class _AddAppointmentState extends State<AddAppointment> {
                 ),
                 SizedBox(height: 20.0),
                 ElevatedButton(
-                  onPressed: _addAppointment,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      _addAppointment();
+                    }
+                  },
                   child: const Text('Remind Me'),
                 ),
               ],

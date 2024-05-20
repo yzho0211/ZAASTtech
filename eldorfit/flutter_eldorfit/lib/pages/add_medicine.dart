@@ -111,8 +111,9 @@ class _AddMedicineState extends State<AddMedicine> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter the number of tablets per dose';
                       }
+                      final num = int.tryParse(value);
                       if (value.isNotEmpty) {
-                        if (value as int > 5) {
+                        if (num == null || num <= 0 || num > 5) {
                           return 'Please enter a valid number';
                         }
                       }
@@ -175,7 +176,12 @@ class _AddMedicineState extends State<AddMedicine> {
                     )),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _addMedicine,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      _addMedicine();
+                    }
+                  },
                   child: const Text('Remind Me'),
                 ),
               ],
