@@ -121,6 +121,13 @@ class WellbeingPage2 extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.home),
+        backgroundColor: Colors.deepPurple,
+      ),
     );
   }
 }

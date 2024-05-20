@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/backgroundcont.dart'; //
+import '../widgets/backgroundcont.dart';
 
 class ReminderPage extends StatefulWidget {
   const ReminderPage({Key? key}) : super(key: key);
@@ -21,11 +21,15 @@ class _ReminderPageState extends State<ReminderPage> {
     Navigator.pushNamed(context, '/appointments');
   }
 
+  void navigateToHomePage() {
+    Navigator.pushNamed(context, '/');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reminders'),
+        title: const Text('Your Reminders'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -42,12 +46,12 @@ class _ReminderPageState extends State<ReminderPage> {
               const Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  'Reminders',
+                  'Your Reminders',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF19297C),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
@@ -56,26 +60,31 @@ class _ReminderPageState extends State<ReminderPage> {
                 context,
                 'Your Medicines',
                 'Set a reminder to take your medicines',
-                Icons.medication, // Added medication icon
+                Icons.medication,
                 navigateToMedicineReminders,
               ),
               _buildReminderButton(
                 context,
                 'Your Appointments',
                 "Set a reminder for your doctor's appointments",
-                Icons.event, // Added event icon
+                Icons.event,
                 navigateToAppointmentReminders,
               ),
               _buildReminderButton(
                 context,
                 'Refill Reminders',
                 'Set a reminder to refill your prescription',
-                Icons.receipt, // Added receipt icon
+                Icons.receipt,
                 navigateToRefillReminders,
               ),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: navigateToHomePage,
+        child: const Icon(Icons.home),
+        backgroundColor: Colors.deepPurple,
       ),
     );
   }
@@ -89,47 +98,43 @@ class _ReminderPageState extends State<ReminderPage> {
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-            ),
-            child: ElevatedButton.icon(
-              onPressed: onPressed,
-              icon: Icon(icon, color: Colors.deepPurple),
-              label: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                child: Text(
-                  buttonText,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.deepPurple,
-                  ),
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-          const SizedBox(height: 8),
-          Text(
-            buttonTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF19297C),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: Colors.deepPurple, size: 40),
+            const SizedBox(height: 8),
+            Text(
+              buttonText,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+            Text(
+              buttonTitle,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.deepPurple,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
 

@@ -274,6 +274,9 @@ class _QuizPageState extends State<QuizPage> {
       }
     });
   }
+  void navigateToHomePage() {
+    Navigator.pushNamed(context, '/');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -347,6 +350,11 @@ class _QuizPageState extends State<QuizPage> {
                 )),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: navigateToHomePage,
+        child: const Icon(Icons.home),
+        backgroundColor: Colors.deepPurple,
       ),
     );
   }

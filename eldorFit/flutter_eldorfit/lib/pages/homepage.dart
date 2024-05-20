@@ -80,26 +80,26 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     CircleAvatar(
                       backgroundImage: AssetImage('assets/images/EldorFit.png'),
-                      radius: 50, // Adjust the radius to fit better
+                      radius: 40, // Adjust the radius to fit better
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Welcome to\nEldorFit',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20, // Adjusted font size to make it smaller
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 252, 252, 252),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Welcome to\nEldorFit',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 252, 252, 252),
-                          ),
-                         ),
-                          ],
-                          ),
-                          ),
+                    ),
+                  ],
+                ),
+              ),
               Container(
                 color: Colors.white,
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "EldorFit welcomes Seniors to a journey of vitality, guiding them towards optimal heart health and well-being as they embrace life's golden years.",
+                  "EldorFit welcomes you to a journey of vitality, guiding you towards optimal heart health and well-being as you embrace life's golden years.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -109,33 +109,43 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const SizedBox(height: 24),
-              _buildHomeButton(
-                context,
-                Icons.alarm,
-                'Your Reminders',
-                'Click here to set reminders for medicines, refills and appointments',
-                navigateToReminders,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildHomeButton(
+                    context,
+                    '⏰',
+                    'Your Reminders',
+                    'Reminders for Medicines, Refills and Appointments',
+                    navigateToReminders,
+                  ),
+                  _buildHomeButton(
+                    context,
+                    '❤️',
+                    'Be HeartWise',
+                    'Latest information on Heart Health',
+                    navigateToHeartwise,
+                  ),
+                ],
               ),
-              _buildHomeButton(
-                context,
-                Icons.favorite,
-                'Be HeartWise',
-                'Learn the latest information on heart health',
-                navigateToHeartwise,
-              ),
-              _buildHomeButton(
-                context,
-                Icons.food_bank,
-                'Your Nutrition',
-                'Click here to learn more about your Nutrition and generate a meal plan',
-                navigateToNutrition,
-              ),
-              _buildHomeButton(
-                context,
-                Icons.info,
-                'Wellbeing Guide', // New button for Wellbeing Guide
-                'Explore resources for your Mental Health and well-being', // New button description
-                navigateToWellbeingGuide, // New button action
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildHomeButton(
+                    context,
+                    '🥗',
+                    'Your Nutrition',
+                    'Learn more about Nutrition and Generate a Meal Plan',
+                    navigateToNutrition,
+                  ),
+                  _buildHomeButton(
+                    context,
+                    '🧘',
+                    'Wellbeing Guide',
+                    'Explore Resources for Mental Health and Well-being',
+                    navigateToWellbeingGuide,
+                  ),
+                ],
               ),
             ],
           ),
@@ -147,38 +157,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildHomeButton(
     BuildContext context,
-    IconData icon,
+    String emoji,
     String buttonText,
     String buttonTitle,
     VoidCallback onPressed,
   ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Container(
-          color: Colors.white,
-          child: ListTile(
-            leading: Icon(
-              icon,
-              color: Colors.deepPurple,
-            ),
-            title: Text(
-              buttonText,
-              style: const TextStyle(
-                fontSize: 28,
-                color: Colors.deepPurple,
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Container(
+            color: Colors.white,
+            child: ListTile(
+              leading: Text(
+                emoji,
+                style: TextStyle(fontSize: 25), // Emoji size
               ),
-            ),
-            subtitle: Text(
-              buttonTitle,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.bold,
+              title: Text(
+                buttonText,
+                style: const TextStyle(
+                  fontSize: 16, // Adjusted font size to fit better
+                  color: Colors.deepPurple,
+                ),
               ),
+              subtitle: Text(
+                buttonTitle,
+                style: const TextStyle(
+                  fontSize: 12, // Adjusted font size to fit better
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: onPressed,
             ),
-            onTap: onPressed,
           ),
         ),
       ),
@@ -237,5 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
 
 

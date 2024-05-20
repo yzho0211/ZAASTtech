@@ -13,13 +13,8 @@ class _TranslationPageState extends State<TranslationPage> {
     'Spanish': 'ES',
     'French': 'FR',
     'Italian': 'IT',
-    'Japanese': 'JA',
-    'Korean': 'KO',
     'Dutch': 'NL',
-    'Polish': 'PL',
     'Portuguese': 'PT',
-    'Russian': 'RU',
-    'Chinese': 'ZH',
   };
 
   String? selectedLanguage;

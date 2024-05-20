@@ -28,7 +28,7 @@ class NutritionPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF19297C),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
@@ -37,6 +37,7 @@ class NutritionPage extends StatelessWidget {
                 context,
                 'View Statistics',
                 'View dietary statistics and guidelines',
+                Icons.analytics,
                 () {
                   Navigator.pushNamed(context, '/diet_trend');
                 },
@@ -45,6 +46,7 @@ class NutritionPage extends StatelessWidget {
                 context,
                 'Daily Calorie Intake',
                 'Calculate your daily calorie needs',
+                Icons.calculate,
                 () {
                   Navigator.pushNamed(context, '/calculate');
                 },
@@ -53,6 +55,7 @@ class NutritionPage extends StatelessWidget {
                 context,
                 'Meal Planner',
                 'Plan your meals with our easy to use meal planner',
+                Icons.restaurant_menu,
                 () {
                   Navigator.pushNamed(context, '/mealpl_p1');
                 },
@@ -61,6 +64,12 @@ class NutritionPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.popUntil(context, ModalRoute.withName('/'));
+        },
+        child: const Icon(Icons.home),
+      ),
     );
   }
 
@@ -68,44 +77,50 @@ class NutritionPage extends StatelessWidget {
     BuildContext context,
     String buttonText,
     String buttonTitle,
+    IconData icon,
     VoidCallback onPressed,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
       child: Column(
         children: [
-          Text(
-            buttonTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF19297C),
-            ),
-          ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
             ),
-            child: ElevatedButton(
+            child: TextButton(
               onPressed: onPressed,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Row(
+                    children: [
+                      Icon(icon, color: Colors.deepPurple),
+                      const SizedBox(width: 8),
+                      Text(
+                        buttonText,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
                   Text(
-                    buttonText,
+                    buttonTitle,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       color: Colors.deepPurple,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  Icon(Icons.arrow_forward, color: Colors.deepPurple),
                 ],
               ),
-              style: ElevatedButton.styleFrom(
+              style: TextButton.styleFrom(
                 backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -117,3 +132,5 @@ class NutritionPage extends StatelessWidget {
     );
   }
 }
+
+

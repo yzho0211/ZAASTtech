@@ -7,7 +7,6 @@ class HealthPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Australian Dietary Guidelines'),
-        // The leading widget is optional - it's provided for clarity. The back button should appear automatically if this page was pushed onto the navigation stack.
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -64,7 +63,20 @@ class HealthPage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (Navigator.canPop(context)) {
+            Navigator.of(context).pop();
+          } else {
+            // This part is reached only if HealthPage is the first route
+            // which normally shouldn't happen in your described app structure
+            // Consider logging this situation or ensuring that your app's navigation flow is as expected
+          }
+        },
+        child: Icon(Icons.home),
+      ),
     );
   }
 }
+
 

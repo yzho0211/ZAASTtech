@@ -96,6 +96,13 @@ class WellbeingPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.popUntil(context, ModalRoute.withName('/'));
+        },
+        child: Icon(Icons.home),
+        backgroundColor: Colors.deepPurple,
+      ),
     );
   }
 
@@ -144,3 +151,4 @@ class WellbeingPage extends StatelessWidget {
     );
   }
 }
+

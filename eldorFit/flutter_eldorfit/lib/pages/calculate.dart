@@ -48,7 +48,7 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Calculate Daily Caloric Intake',
+                  'Calculate your recommended Daily Calorie Intake',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -62,7 +62,7 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color:
-                            _gender == 'Male' ? Color(0xFF19297C) : Colors.grey,
+                            _gender == 'Male' ? Colors.deepPurple : Colors.grey,
                       ),
                       child: OutlinedButton(
                         onPressed: () {
@@ -74,7 +74,7 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                           'Male',
                           style: TextStyle(
                             fontSize: 38,
-                            color: Colors.yellow,
+                            color: const Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
                         style: OutlinedButton.styleFrom(
@@ -87,7 +87,7 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: _gender == 'Female'
-                            ? Color(0xFF19297C)
+                            ? Colors.deepPurple
                             : Colors.grey,
                       ),
                       child: OutlinedButton(
@@ -100,7 +100,7 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                           'Female',
                           style: TextStyle(
                             fontSize: 38,
-                            color: Colors.yellow,
+                            color: const Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
                         style: OutlinedButton.styleFrom(
@@ -127,7 +127,7 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                           '${index + 40}',
                           style: TextStyle(
                             fontSize: 38,
-                            color: Colors.yellow,
+                            color: const Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
                       ),
@@ -206,11 +206,11 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
                     'Calculate',
                     style: TextStyle(
                       fontSize: 24,
-                      color: Colors.yellow,
+                      color: const Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF19297C),
+                    backgroundColor: Colors.deepPurple,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40),
                     ),
@@ -221,6 +221,13 @@ class _CalorieCalculatorPageState extends State<CalorieCalculatorPage> {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.popUntil(context, ModalRoute.withName('/'));
+        },
+        child: const Icon(Icons.home),
+        backgroundColor: Colors.deepPurple,
       ),
     );
   }

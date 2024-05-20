@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/backgroundcont.dart'; 
+import '../widgets/backgroundcont.dart';
 
 class HeartWisePage extends StatelessWidget {
   @override
@@ -68,6 +68,13 @@ class HeartWisePage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/');
+        },
+        child: const Icon(Icons.home),
+        backgroundColor: Colors.deepPurple,
+      ),
     );
   }
 
@@ -116,4 +123,5 @@ class HeartWisePage extends StatelessWidget {
     );
   }
 }
+
 
